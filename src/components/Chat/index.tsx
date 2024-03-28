@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import * as Stomp from '@stomp/stompjs';
 import * as S from './styles';
 import TopNavBar from '../TopNavBar';
-import NavBar from '../NavBar';
+import NavBar from '../BottomNavBar';
 import 'moment/locale/ko';
 moment.locale('ko');
 import moment from 'moment';
