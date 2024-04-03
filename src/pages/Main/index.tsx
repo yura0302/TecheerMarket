@@ -1,4 +1,4 @@
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/BottomNavBar';
 import React from 'react';
 import ProductForm from '@/components/ProductForm';
 import Loading from '@/components/Loading';
