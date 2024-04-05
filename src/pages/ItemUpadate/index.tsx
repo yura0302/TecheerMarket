@@ -3,14 +3,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 import TopNavBar from '@/components/TopNavBar';
 import * as S from './styles';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/BottomNavBar';
 import uploadimage from '../../assets/uploadimg.svg';
 import categoryBar from '../../assets/categoryBar.svg';
 import searchBtn from '../../assets/Search.svg';
 import KakaoMap from '@/components/KakaoMap';
 import { debounce, set } from 'lodash';
 import { restFetcher } from '@/queryClient';
-import axios from 'axios';
 
 const WritePost = () => {
   const navigate = useNavigate();
@@ -26,9 +25,6 @@ const WritePost = () => {
 
   console.log('o=ooo', productImages);
 
-  // const [files, setFiles] = useState<File | null>(null);
-  // const [fileUrl, setFileUrl] = useState('');
-
   const getProduct = async () => {
     try {
       const response = await restFetcher({
@@ -36,7 +32,6 @@ const WritePost = () => {
         path: `/products/list/${productId}`,
       });
       console.log('check', response);
-      // axios.get(`/products/list/${productId}`);
 
       const data = response.data;
       setTitle(data.title);
@@ -113,26 +108,11 @@ const WritePost = () => {
       formData.append('productImages', blobs[i]);
     }
 
-    console.log('eerrririri');
-    // const array: any = [];
-
-    // productImages.forEach((imageFile, index) => {
-    //   urlToBlob(imageFile).then((blob) => {
-    //     array.push(blob);
-    //     console.log('blob', blob);
-    //   });
-    // });
-    // console.log(array);
-    // formData.append('productImages', array);
     formData.append('location', location);
 
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-    // productImages.forEach((imageFile, index) => {
-    //   const fieldName = `image_${index + 1}`;
-    //   formData.append(fieldName, imageFile);
-    // });
 
     try {
       await restFetcher({
@@ -155,11 +135,6 @@ const WritePost = () => {
     let value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
     setPrice(parseInt(value)); // 실제로 서버에 전달될 값
   };
-
-  const debouncedSetLocation = useCallback(
-    debounce((value) => setLocation(value), 1000),
-    [],
-  );
 
   return (
     <S.Writepost>
