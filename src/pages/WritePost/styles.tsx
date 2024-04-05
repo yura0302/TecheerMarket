@@ -85,8 +85,8 @@ export const ImagesContainer = styled.div`
 
   .image-count {
     position: absolute;
-    bottom: 21px;
-    right: 47.5px;
+    bottom: 20px;
+    right: 42.3px;
     color: black;
     padding: 2px 5px;
     font-size: 16px;

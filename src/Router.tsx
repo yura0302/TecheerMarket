@@ -17,6 +17,7 @@ const SellerPage = lazy(() => import('@/pages/SellerPage'));
 const ChatList = lazy(() => import('@/pages/ChatList'));
 const ItemDetail = lazy(() => import('@/pages/ItemDetail'));
 const ChattingPage = lazy(() => import('@/pages/ChattingPage'));
+const ItemUpdate = lazy(() => import('@/pages/ItemUpadate'));
 
 export const routes = [
   { path: '/', element: <Main /> },
@@ -29,8 +30,11 @@ export const routes = [
   { path: '/purchaselist', element: <PurchaseList /> },
   { path: '/mypage', element: <MyPage /> },
   { path: '/item/:productId', element: <ItemDetail /> },
+  { path: '/item/update/:productId', element: <ItemUpdate /> },
   { path: '/edit_info', element: <EditInfo /> },
   { path: '/chat', element: <ChatList /> },
+  { path: '/chat/room', element: <ChatList /> },
+  { path: '/chat/room?', element: <ChatList /> },
   { path: '/chat/create/:id', element: <ChattingPage /> },
   { path: '/item/:id', element: <ItemDetail /> },
   { path: '/category', element: <CategoryList /> },

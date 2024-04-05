@@ -3,15 +3,12 @@ import React, { useState, useEffect, useCallback } from 'react';
 import TopNavBar from '@/components/TopNavBar';
 import * as S from './styles';
 import { Link } from 'react-router-dom';
-import NavBar from '@/components/NavBar';
+import NavBar from '@/components/BottomNavBar';
 import uploadimage from '../../assets/uploadimg.svg';
-import categoryBar from '../../assets/categoryBar.svg';
-import searchBtn from '../../assets/Search.svg';
 import KakaoMap from '@/components/KakaoMap';
 import { debounce } from 'lodash';
 import { restFetcher } from '@/queryClient';
 import NoImg from '../../assets/noImg.svg';
-
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoSearchOutline } from 'react-icons/io5';
 
@@ -32,10 +29,12 @@ const WritePost = () => {
 
     if (files && files.length > 0) {
       const file = files[0];
-      if (productImages.length >= 4) {
-        alert('사진은 최대 4장까지 업로드 가능합니다.');
+
+      if (productImages.length >= 10) {
+        alert('사진은 최대 10장까지 업로드 가능합니다.');
         return;
       }
+
       // 선택된 이미지가 대표 이미지면 해제
       if (representativeImage === file) {
         setRepresentativeImage(null);
@@ -92,6 +91,7 @@ const WritePost = () => {
       const noImgBlob = await fetch(NoImg).then((res) => res.blob());
       formData.append('productImages', noImgBlob);
     }
+
     // 조건 처리 해주기
 
     // formData.append('productImages', new Blob());
@@ -104,6 +104,7 @@ const WritePost = () => {
     //   const fieldName = `image_${index + 1}`;
     //   formData.append(fieldName, imageFile);
     // });
+
     formData.append('location', location);
 
     console.log('a');
@@ -171,10 +172,8 @@ const WritePost = () => {
                     fontSize: '16px',
                   }}
                 >
-                  <>
-                    {productImages.length}
-                    <span style={{ fontSize: '16px', color: 'black' }}>/4</span>
-                  </>
+                  {productImages.length}
+                  <span style={{ fontSize: '16px', color: 'black' }}>/10</span>
                 </span>
                 <img
                   src={uploadimage}
@@ -230,9 +229,9 @@ const WritePost = () => {
                   </button>
                 </div>
               ))}
-              {productImages.length === 0 && (
+              {/* {productImages.length === 0 && (
                 <img src={NoImg} alt="No Image" style={{ width: '130px', height: '130px' }} />
-              )}
+              )} */}
             </S.ImagesContainer>
           </S.Img>
           <S.Form>
