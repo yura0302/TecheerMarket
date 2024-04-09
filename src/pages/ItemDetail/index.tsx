@@ -106,6 +106,7 @@ const ItemDetail: React.FC = () => {
       path: `/chat/create/${parsedProductId}`,
     });
     console.log(response.data);
+    navigate(`/chat/${response.data.chatRoomId}`);
   };
   //   const chatPath = `/chat/create/${parsedProductId}`;
   //   restFetcher({
