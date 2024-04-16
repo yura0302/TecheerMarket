@@ -38,3 +38,4 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 
 axios.defaults.withCredentials = true;
 Modal.setAppElement('#root');
+

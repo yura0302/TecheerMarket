@@ -4,7 +4,6 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { ChatContent } from '../Chat';
 import ChatMessage from '../ChatMessage';
-
 interface IChatContainer {
   chatList: ChatContent[];
   setChatList: React.Dispatch<React.SetStateAction<ChatContent[]>>;

@@ -14,6 +14,7 @@ import Loading from '@/components/Loading';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 import Carousel from '@/components/Carousel';
 
+
 interface ItemDetailProps {
   productId: string;
   productImages: string[];
@@ -106,18 +107,10 @@ const ItemDetail: React.FC = () => {
       path: `/chat/create/${parsedProductId}`,
     });
     console.log(response.data);
-    navigate(`/chat/${response.data.chatRoomId}`);
+    navigate(`/chat/${response.data.chatRoomId}`, {
+      state: { chatRoomId: response.data.chatRoomId, productInfo: response.data.productInfo },
+    });
   };
-  //   const chatPath = `/chat/create/${parsedProductId}`;
-  //   restFetcher({
-  //     method: 'POST',
-  //     path: chatPath,
-  //   });
-  //   navigate(chatPath, {
-  //     // state: { productId },
-  //   });
-  // };
-  // console.log(parsedProductId);
 
   if (isLoading) return <Loading />;
   console.log(productId);

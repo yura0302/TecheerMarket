@@ -1,19 +1,17 @@
+import { useLocation } from 'react-router-dom';
 import Chat from '@/components/Chat';
-import Loading from '@/components/Loading';
-import axios from 'axios';
-import { response } from 'msw';
-import { useQuery } from 'react-query';
-import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 
-interface UserInfo {
-  chatRoomId: number;
-  senderEmail: string;
-  createdAt: string;
-}
+// interface UserInfo {
+//   chatRoomId: number;
+//   senderEmail: string;
+//   createdAt: string;
+// }
 
 const ChattingPage = () => {
   const location = useLocation();
-  const state = location.state || {};
+  const chatData = location.state;
+
+  return <Chat chatRoomId={chatData.chatRoomId} productInfo={chatData.productInfo} />;
 
   // const userInfo = async () => {
   //   try {
@@ -30,11 +28,5 @@ const ChattingPage = () => {
   // }
   // if (isLoading) return <Loading />;
   // console.log(state.chatRoomId);
-  return (
-    <>
-      <Chat chatRoomId={state.chatRoomId} data={state.data!} />
-    </>
-  );
 };
-
 export default ChattingPage;

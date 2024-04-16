@@ -13,15 +13,14 @@ export const Div = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const ProductImage = styled.div`
+export const ProductImage = styled.img`
   width: 8rem;
   height: 8rem;
-  background-size: cover;
   background-repeat: no-repeat;
-  background-color: blue;
   border-radius: 10px;
   margin-top: 10px;
   margin-left: 15px;
+  background-size: object-fit;
 `;
 export const Texts = styled.div`
   display: flex;

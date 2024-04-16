@@ -3,14 +3,13 @@ import * as Stomp from '@stomp/stompjs';
 import * as S from './styles';
 import TopNavBar from '../TopNavBar';
 import NavBar from '../BottomNavBar';
-import 'moment/locale/ko';
-moment.locale('ko');
-import moment from 'moment';
 import ChatContainer from '../ChatContainer';
-
+import moment from 'moment';
+import 'moment/locale/ko';
+import { formatDateToNow } from '@/utils/formatDateToNow';
 interface ChatProps {
   chatRoomId: number;
-  data: ChatData;
+  productInfo: ChatData;
 }
 
 export interface ChatContent {
@@ -22,7 +21,13 @@ export interface ChatData {
   chatRoomId: number;
   senderEmail: string;
   message?: string;
-  createdAt: Date | string;
+  createdAt: string;
+  name: string;
+  price: number;
+  productId: number;
+  thumbnailURL: string;
+  title: string;
+  userId: number;
 }
 
 export interface ChatResponse {
@@ -33,7 +38,7 @@ export interface ChatResponse {
   prev: number;
 }
 
-const Chat = ({ chatRoomId, data }: ChatProps) => {
+const Chat = ({ chatRoomId, productInfo }: ChatProps) => {
   const [chatList, setChatList] = useState<ChatContent[]>([]);
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
@@ -68,10 +73,15 @@ const Chat = ({ chatRoomId, data }: ChatProps) => {
     client.current?.publish({
       destination: '/pub/api/chat/sendMessage',
       body: JSON.stringify({
-        chatRoomId: data.chatRoomId,
-        senderEmail: data.senderEmail,
+        chatRoomId: productInfo.chatRoomId,
+        senderEmail: productInfo.senderEmail,
         message: chat,
-        createAt: data.createdAt,
+        createdAt: productInfo.createdAt,
+        name: productInfo.name,
+        price: productInfo.price,
+        productId: productInfo.productId,
+        thumbnailURL: productInfo.thumbnailURL,
+        title: productInfo.title,
       }),
     });
     setChatText('');
@@ -94,36 +104,39 @@ const Chat = ({ chatRoomId, data }: ChatProps) => {
   }, [connect]);
 
   return (
-    // 수정
     <>
-      <TopNavBar page="홍다연" />
-      <S.Container>
-        <S.Div>
-          <S.ProductImage />
-          <S.Texts>
-            <S.ProductName>갤럭시 팔아여</S.ProductName>
-            <S.RowDiv>
-              <S.Writer>홍다연</S.Writer>
-              <S.DayText>3일전</S.DayText>
-            </S.RowDiv>
-            <S.Price>45000원</S.Price>
-          </S.Texts>
-        </S.Div>
-      </S.Container>
-      <S.Time>2022-02-22</S.Time>
-      <S.ChatContent />
-      <ChatContainer chatList={chatList} setChatList={setChatList} />
-      <S.ChatDiv>
-        <S.Input
-          type="text"
-          placeholder="메시지 보내기"
-          onKeyDown={onKeyDown}
-          onChange={onTyping}
-          value={chatText}
-        />
-        <S.Button onClick={() => publish(chatText)} />
-      </S.ChatDiv>
-      <NavBar />
+      {productInfo && (
+        <>
+          <TopNavBar page={productInfo.name} />
+          <S.Container>
+            <S.Div>
+              <S.ProductImage src={productInfo.thumbnailURL}></S.ProductImage>
+              <S.Texts>
+                <S.ProductName>{productInfo.name}</S.ProductName>
+                <S.RowDiv>
+                  <S.Writer>{productInfo.title}</S.Writer>
+                  <S.DayText>{formatDateToNow(productInfo.createdAt as string)}</S.DayText>
+                </S.RowDiv>
+                <S.Price>{productInfo.price}원</S.Price>
+              </S.Texts>
+            </S.Div>
+          </S.Container>
+          <S.Time>{moment().format('YYYY년 MM월 DD일')}</S.Time>
+          <S.ChatContent />
+          <ChatContainer chatList={chatList} setChatList={setChatList} />
+          <S.ChatDiv>
+            <S.Input
+              type="text"
+              placeholder="메시지 보내기"
+              onKeyDown={onKeyDown}
+              onChange={onTyping}
+              value={chatText}
+            />
+            <S.Button onClick={() => publish(chatText)} />
+          </S.ChatDiv>
+          <NavBar />
+        </>
+      )}
     </>
   );
 };
