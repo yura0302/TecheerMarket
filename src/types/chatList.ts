@@ -6,6 +6,7 @@ export interface ResChatMessage {
   productPrice: number;
   productThumbnail: string;
   chatPartnerName: string;
+  createdAt: string;
 }
 
 export type ChatProduct = {

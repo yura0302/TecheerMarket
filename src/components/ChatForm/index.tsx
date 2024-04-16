@@ -3,15 +3,25 @@ import * as S from './style';
 import profile from '../../assets/profile.svg';
 import { useNavigate } from 'react-router-dom';
 import { ResChatMessage } from '@/types/chatList';
+import { restFetcher } from '@/queryClient';
+import { formatDateToNow } from '@/utils/formatDateToNow';
 
 interface ChatFormProps {
   items: ResChatMessage[];
 }
+
 export default function ChatForm({ items }: ChatFormProps) {
   const [chatList, setChatList] = useState<ResChatMessage[]>([]);
   const navigate = useNavigate();
-  const goToChatRoom = () => {
-    navigate('/chat/room');
+
+  const goToChatRoom = async (chatRoomId: number) => {
+    const response = await restFetcher({
+      method: 'GET',
+      path: `/chat/${chatRoomId}`,
+    });
+    navigate(`/chat/${chatRoomId}`, {
+      state: { chatRoomId: response.data.chatRoomId },
+    });
   };
 
   useEffect(() => {
@@ -20,15 +30,15 @@ export default function ChatForm({ items }: ChatFormProps) {
 
   return (
     <S.Container>
-      {items.map((item, idx) => (
-        <S.Div onClick={goToChatRoom} key={idx}>
+      {items.map((item) => (
+        <S.Div onClick={() => goToChatRoom(item.id)} key={item.id}>
           <S.Icon>
             <S.IconImage src={profile} />
           </S.Icon>
           <S.Texts>
             <S.TopText>
               <S.NameText>{item.chatPartnerName}</S.NameText>
-              <S.DayText>3일전</S.DayText>
+              <S.DayText>{formatDateToNow(item.createdAt as string)}</S.DayText>
             </S.TopText>
             <S.Chat>넵 수고염</S.Chat>
           </S.Texts>
