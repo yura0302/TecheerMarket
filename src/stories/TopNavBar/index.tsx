@@ -1,4 +1,4 @@
-import * as S from './styles';
+import * as S from '@/components/TopNavBar/styles';
 import { SlArrowLeft } from 'react-icons/sl';
 
 interface TopNavBarProps {
@@ -9,7 +9,7 @@ interface TopNavBarProps {
 const TopNavBar: React.FC<TopNavBarProps> = ({ page, onNavBack }: TopNavBarProps) => {
   return (
     <S.BarContainer>
-      <S.ClickArea onClick={onNavBack}>
+      <S.ClickArea onClick={onNavBack} data-testid="back-button">
         <SlArrowLeft style={{ width: '25px', height: '25px' }} />
       </S.ClickArea>
       <S.NavText>{page}</S.NavText>

@@ -1,4 +1,14 @@
 import type { Preview } from '@storybook/react';
+import React from 'react';
+import '../src/GlobalStyle.tsx';
+
+export const decorators = [
+  (Story) => (
+    <body>
+      <Story />
+    </body>
+  ),
+];
 
 const preview: Preview = {
   parameters: {

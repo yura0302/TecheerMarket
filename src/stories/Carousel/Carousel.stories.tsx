@@ -1,21 +1,24 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Carousel from '../../components/Carousel/index';
+import { userEvent, within } from '@storybook/testing-library';
 
-export default {
+const meta: Meta<typeof Carousel> = {
   title: 'Component/Carousel',
   component: Carousel,
   tags: ['autodocs'],
-} as Meta;
+};
 
-type Template = StoryObj<typeof Carousel>;
+export default meta;
 
-export const Empty: Template = {
+type Story = StoryObj<typeof Carousel>;
+
+export const Empty: Story = {
   args: {
     images: [],
   },
 };
 
-export const Basic: Template = {
+export const Basic: Story = {
   args: {
     images: [
       'https://techeer-market.s3.ap-northeast-2.amazonaws.com/product/a3861677-5968-4fe6-a27b-0ec781274142-blob',
@@ -23,11 +26,17 @@ export const Basic: Template = {
   },
 };
 
-export const Multiple: Template = {
+export const Multiple: Story = {
   args: {
     images: [
       'https://techeer-market.s3.ap-northeast-2.amazonaws.com/product/a3861677-5968-4fe6-a27b-0ec781274142-blob',
       'https://techeer-market.s3.ap-northeast-2.amazonaws.com/product/a3861677-5968-4fe6-a27b-0ec781274142-blob',
     ],
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const buttons = canvas.getByTestId('1');
+    await userEvent.click(buttons, { delay: 1000 });
   },
 };
