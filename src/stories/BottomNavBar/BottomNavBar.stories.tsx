@@ -25,10 +25,9 @@ export const Basic: Story = {
     const mypageButton = canvas.getByTestId('mypage-button');
 
     // 클릭 이벤트 테스트
-    // await userEvent.click(homeButton);
-    // await userEvent.click(likeButton);
-    // await userEvent.click(chatButton);
-    // await userEvent.click(mypageButton);
+    // [homeButton, likeButton, chatButton, mypageButton].map(async (button) =>
+    //   userEvent.click(button),
+    // );
 
     // 화면에 버튼이 모두 보이는지 테스트
     [homeButton, likeButton, chatButton, mypageButton].map(

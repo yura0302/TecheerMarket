@@ -1,7 +1,5 @@
 import EditInfoModal from '@/components/EditInfoModal';
 import { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
-import { userEvent, within, waitFor } from '@storybook/testing-library';
 
 const meta: Meta<typeof EditInfoModal> = {
   title: 'Component/EditInfoModal',

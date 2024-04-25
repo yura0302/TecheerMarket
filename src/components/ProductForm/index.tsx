@@ -63,7 +63,7 @@ const ProductForm = ({ items, state }: ProductProps) => {
         path: `/products/${productId}`,
       }),
     {
-      onSuccess: (_, productId) => {
+      onSuccess: () => {
         queryClient.invalidateQueries(['saleslist']);
       },
       onError: (error) => {
