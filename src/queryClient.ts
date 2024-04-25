@@ -26,10 +26,7 @@ export const getClient = (() => {
   };
 })();
 
-// const { VITE_BASE_URL } = import.meta.env;
-// const BASE_URL = import.meta.env.DEV ? '/api' : 'test';
-// const BASE_URL = 'http://techeermarket.ap-northeast-2.elasticbeanstalk.com/api';
-const BASE_URL = 'https://eb.techeermarket.store/api';
+const BASE_URL = import.meta.env.VITE_APP_URL;
 
 export const api = axios.create({
   baseURL: BASE_URL,
