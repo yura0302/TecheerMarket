@@ -1,0 +1,94 @@
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import { Product } from '@/types/product';
+import { getClient, restFetcher } from '@/queryClient';
+import { useMutation } from '@tanstack/react-query';
+import { ProductProps } from '@/components/ProductForm';
+import { AxiosError } from 'axios';
+import { ApiResponseType } from '@/types/apiResponseType';
+
+type ProductFormProps = Pick<ProductProps, 'state'>;
+
+const useProductForm = ({ state }: ProductFormProps) => {
+  const navigate = useNavigate();
+
+  const location = useLocation();
+  const queryClient = getClient();
+  const [dropDown, setDropDown] = useState<number>(0);
+
+  const isWishPage = location.pathname === '/wishlist';
+  const isSalesPage = location.pathname === '/saleslist';
+
+  const mutateChangeProductState = useMutation(
+    (product: Product) => {
+      let newState = state === 'SOLD' ? 'SALE' : 'SOLD';
+      return restFetcher({
+        method: 'PUT',
+        path: `/products/state/${product.productId}`,
+        body: { state: newState },
+      });
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['saleslist']);
+      },
+      onError: (error) => {
+        let err = error as AxiosError<ApiResponseType>;
+        let message =
+          err.response?.data.errorMessage || '상품 상태 변경에 실패했습니다. 다시 시도해주세요.';
+        alert(message);
+      },
+    },
+  );
+
+  // 상품 상태 변경 핸들러 (판매 내역 페이지)
+  const handleChangeState = async (product: Product) => {
+    await mutateChangeProductState.mutateAsync(product);
+  };
+
+  //상품 게시글 수정
+  const handleUpgrade = (productId: number) => {
+    navigate(`/item/update/${productId}`);
+  };
+
+  const mutateDeleteProduct = useMutation(
+    (productId: number) =>
+      restFetcher({
+        method: 'DELETE',
+        path: `/products/${productId}`,
+      }),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['saleslist']);
+      },
+      onError: (error) => {
+        let err = error as AxiosError<ApiResponseType>;
+        let message =
+          err.response?.data.errorMessage || '상품 삭제에 실패했습니다. 다시 시도해주세요.';
+        alert(message);
+      },
+    },
+  );
+
+  // 삭제 버튼 핸들러 (판매 내역 페이지)
+  const handleDelete = async (productId: number) => {
+    await mutateDeleteProduct.mutateAsync(productId);
+  };
+
+  const handleChangeDropDown = (productId: number) => {
+    setDropDown(dropDown === productId ? 0 : productId);
+  };
+
+  return {
+    navigate,
+    dropDown,
+    isWishPage,
+    isSalesPage,
+    handleChangeState,
+    handleUpgrade,
+    handleDelete,
+    handleChangeDropDown,
+  };
+};
+
+export default useProductForm;
