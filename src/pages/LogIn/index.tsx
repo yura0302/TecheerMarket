@@ -2,8 +2,6 @@ import React, { useCallback, useState } from 'react';
 import * as S from './styles';
 import { useNavigate } from 'react-router-dom';
 import Logo from '@/components/Logo';
-import { KAKAO_AUTH_URL } from '@/utils/OAuth.js';
-import { RiKakaoTalkFill } from 'react-icons/ri';
 import { restFetcher } from '@/queryClient';
 import { useMutation } from '@tanstack/react-query';
 import Loading from '@/components/Loading';

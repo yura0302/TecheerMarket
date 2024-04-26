@@ -1,17 +1,17 @@
 import React from 'react';
-import { ChatContent } from '../Chat';
+import { ChatInfoData } from '../Chat';
 import * as S from '@/components/ChatOtherMessage/styles';
 import moment from 'moment';
 
 interface IChatMessage {
-  message: ChatContent;
+  message: ChatInfoData;
 }
 
 const ChatOtherMessage = ({ message }: IChatMessage) => {
   return (
     <S.Container>
-      <S.CreatedTime>{moment(message.data.createdAt).format('HH:mm')}</S.CreatedTime>
-      <S.OtherMessage>{message.data.message}</S.OtherMessage>
+      <S.CreatedTime>{moment(message.createdAt).format('HH:mm')}</S.CreatedTime>
+      <S.OtherMessage>{message.message}</S.OtherMessage>
     </S.Container>
   );
 };

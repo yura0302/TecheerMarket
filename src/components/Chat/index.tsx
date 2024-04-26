@@ -7,48 +7,52 @@ import ChatContainer from '../ChatContainer';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { formatDateToNow } from '@/utils/formatDateToNow';
+import { useLocation } from 'react-router-dom';
+import { restFetcher } from '@/queryClient';
+
 interface ChatProps {
   chatRoomId: number;
   productInfo: ChatData;
+  chatInfoList: ChatInfoData[];
 }
-
-export interface ChatContent {
-  type: string;
-  chatRoomId: number;
-  data: ChatData;
-}
-export interface ChatData {
-  chatRoomId: number;
-  senderEmail: string;
-  message?: string;
+export interface ChatInfoData {
+  senderId: number;
+  message: string;
   createdAt: string;
-  name: string;
-  price: number;
-  productId: number;
-  thumbnailURL: string;
-  title: string;
-  userId: number;
 }
 
+export interface ChatData {
+  productId: number;
+  title: string;
+  thumbnailURL?: string;
+  name: string;
+  userEmail: string;
+  userId: number;
+  price: number;
+  createdAt: string;
+  message: string;
+}
 export interface ChatResponse {
-  content: ChatContent[];
+  content: ChatInfoData[];
   hasNext: boolean;
   hasPrev: boolean;
   next: number;
   prev: number;
 }
 
-const Chat = ({ chatRoomId, productInfo }: ChatProps) => {
-  const [chatList, setChatList] = useState<ChatContent[]>([]);
+const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
+  const [chatList, setChatList] = useState<ChatInfoData[]>(chatInfoList);
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/sub/chat/room/${chatRoomId}`, (body) => {
       const json_body = JSON.parse(body.body);
-      setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
+      setChatList((chat_list: ChatInfoData[]) => [...chat_list, json_body]);
     });
-  }, []);
+    console.error();
+  }, [chatRoomId]);
 
   const connect = useCallback(() => {
     client.current = new Stomp.Client({
@@ -66,22 +70,20 @@ const Chat = ({ chatRoomId, productInfo }: ChatProps) => {
   const disconnect = () => {
     client.current?.deactivate();
   };
-
   const publish = (chat: string) => {
-    if (!client.current?.connected) return;
-    if (chat.trim() === '') return;
+    if (!client.current?.connected) {
+      return;
+    }
+    if (chat.trim() === '') {
+      return;
+    }
     client.current?.publish({
       destination: '/pub/api/chat/sendMessage',
       body: JSON.stringify({
-        chatRoomId: productInfo.chatRoomId,
-        senderEmail: productInfo.senderEmail,
+        chatRoomId,
+        senderId: productInfo.userId,
         message: chat,
         createdAt: productInfo.createdAt,
-        name: productInfo.name,
-        price: productInfo.price,
-        productId: productInfo.productId,
-        thumbnailURL: productInfo.thumbnailURL,
-        title: productInfo.title,
       }),
     });
     setChatText('');
@@ -92,17 +94,31 @@ const Chat = ({ chatRoomId, productInfo }: ChatProps) => {
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey && e.nativeEvent.isComposing === false) {
+    if (
+      e.currentTarget.value.trim() !== '' &&
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
       e.preventDefault();
       publish(chatText);
     }
   };
 
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatList]);
+
   useEffect(() => {
     connect();
     return () => disconnect();
   }, [connect]);
-
   return (
     <>
       {productInfo && (
@@ -110,7 +126,7 @@ const Chat = ({ chatRoomId, productInfo }: ChatProps) => {
           <TopNavBar page={productInfo.name} />
           <S.Container>
             <S.Div>
-              <S.ProductImage src={productInfo.thumbnailURL}></S.ProductImage>
+              <S.ProductImage src={productInfo?.thumbnailURL}></S.ProductImage>
               <S.Texts>
                 <S.ProductName>{productInfo.name}</S.ProductName>
                 <S.RowDiv>
@@ -122,14 +138,15 @@ const Chat = ({ chatRoomId, productInfo }: ChatProps) => {
             </S.Div>
           </S.Container>
           <S.Time>{moment().format('YYYY년 MM월 DD일')}</S.Time>
-          <S.ChatContent />
-          <ChatContainer chatList={chatList} setChatList={setChatList} />
+
+          {/* <S.ChatContent /> */}
+          <ChatContainer chatInfoList={chatInfoList} setChatInfoList={setChatList} />
           <S.ChatDiv>
             <S.Input
               type="text"
               placeholder="메시지 보내기"
-              onKeyDown={onKeyDown}
               onChange={onTyping}
+              onKeyDown={onKeyDown}
               value={chatText}
             />
             <S.Button onClick={() => publish(chatText)} />

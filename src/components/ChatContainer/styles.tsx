@@ -8,6 +8,7 @@ export const Container = styled.div`
   height: 90%;
   margin: 0 auto;
   overflow-y: scroll;
+  background-color: red;
 `;
 export const TodayDate = styled.div`
   width: 336px;

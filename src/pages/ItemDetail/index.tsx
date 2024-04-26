@@ -13,7 +13,8 @@ import { getClient, restFetcher } from '@/queryClient';
 import Loading from '@/components/Loading';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 import Carousel from '@/components/Carousel';
-
+import { useState } from 'react';
+import { ChatData, ChatInfoData } from '@/components/Chat';
 
 interface ItemDetailProps {
   productId: string;
@@ -100,20 +101,24 @@ const ItemDetail: React.FC = () => {
       changeLikeMutation.mutate(productId);
     }
   };
-
-  const goToChat = async () => {
-    const response = await restFetcher({
-      method: 'POST',
-      path: `/chat/create/${parsedProductId}`,
-    });
-    console.log(response.data);
-    navigate(`/chat/${response.data.chatRoomId}`, {
-      state: { chatRoomId: response.data.chatRoomId, productInfo: response.data.productInfo },
-    });
+  const handleChat = async () => {
+    try {
+      const response = await restFetcher({
+        method: 'POST',
+        path: `/chat/create/${parsedProductId}`,
+      });
+      const { chatRoomId, productInfo, chatInfoList } = response.data;
+      navigate(`/chat/${chatRoomId}`, {
+        state: { chatRoomId, productInfo, chatInfoList },
+      });
+    } catch (err) {
+      console.log(err);
+    }
   };
+  console.log(parsedProductId);
 
   if (isLoading) return <Loading />;
-  console.log(productId);
+  // console.log(productId);
   return (
     <S.Container>
       <TopNavBar page="" />
@@ -170,7 +175,7 @@ const ItemDetail: React.FC = () => {
           </S.ButtonsBox>
           <S.ChatButton
             onClick={() => {
-              goToChat();
+              handleChat();
             }}
           >
             채팅하기

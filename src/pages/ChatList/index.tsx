@@ -12,10 +12,9 @@ export default function ChatList() {
     path: '/chat/room',
   });
   const path = '/chat/room',
-    queryKey = 'chat';
+    queryKey = 'chat_room';
   const { data, isLoading, fetchNextPage } = useFetchProductList({ path, queryKey });
   useInfiniteScroll({ fetchCallback: fetchNextPage });
-  console.log(data?.pages);
 
   if (isLoading) return <Loading />;
   return (
