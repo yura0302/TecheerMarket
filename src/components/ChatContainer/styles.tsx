@@ -1,23 +1,20 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
-  width: 98%;
-  height: 90%;
+  width: 100%;
+  height: 10rem;
   margin: 0 auto;
-  overflow-y: scroll;
-  background-color: red;
 `;
 export const TodayDate = styled.div`
   width: 336px;
   height: 25px;
-  background-color: #717171;
-  margin: 20px 0;
-  border-radius: 10px;
+  margin: 5px 0;
   text-align: center;
   line-height: 25px;
-  color: white;
+  color: #717171;
   font-size: 15px;
+  font-weight: bold;
 `;

@@ -85,7 +85,6 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) =>
         createdAt: productInfo.createdAt,
       }),
     });
-    console.log(senderId);
     setChatText('');
   };
 
@@ -137,8 +136,6 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) =>
               </S.Texts>
             </S.Div>
           </S.Container>
-          <S.Time>{moment().format('YYYY년 MM월 DD일')}</S.Time>
-
           <ChatContainer
             chatInfoList={chatInfoList}
             setChatInfoList={setChatList}

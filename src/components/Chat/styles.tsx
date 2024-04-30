@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  /* position: relative; */
+  position: relative;
   width: 100%;
   height: 10rem;
   border-radius: 10px;
@@ -80,12 +80,4 @@ export const Button = styled.button`
 export const ChatContent = styled.div`
   width: 100%;
   height: 60rem;
-`;
-export const Time = styled.div`
-  justify-content: center;
-  display: flex;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 13px;
-  color: #878787;
 `;

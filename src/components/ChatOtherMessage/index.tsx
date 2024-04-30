@@ -10,8 +10,8 @@ interface IChatMessage {
 const ChatOtherMessage = ({ message }: IChatMessage) => {
   return (
     <S.Container>
-      <S.CreatedTime>{moment(message.createdAt).format('HH:mm')}</S.CreatedTime>
       <S.OtherMessage>{message.message}</S.OtherMessage>
+      <S.CreatedTime>{moment(message.createdAt).format('HH:mm')}</S.CreatedTime>
     </S.Container>
   );
 };
