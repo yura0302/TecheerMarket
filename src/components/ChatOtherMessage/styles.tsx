@@ -9,7 +9,7 @@ export const OtherMessage = styled.div`
   min-height: 15px;
   min-width: 30px;
   max-width: 680px;
-  background-color: #d9d9d9;
+  background-color: #ececec;
   color: black;
   font-weight: bold;
   display: flex;

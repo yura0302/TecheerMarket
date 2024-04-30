@@ -7,6 +7,7 @@ import moment from 'moment';
 import 'moment/locale/ko';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 import ChatContainer from '../ChatContainer';
+import ChatBtn from '@/assets/ChatBtn.svg';
 
 interface ChatProps {
   chatRoomId: number;
@@ -149,7 +150,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) =>
               onKeyDown={onKeyDown}
               value={chatText}
             />
-            <S.Button onClick={() => publish(chatText)} />
+            <S.Button src={ChatBtn} onClick={() => publish(chatText)} />
           </S.ChatDiv>
           <NavBar />
         </>

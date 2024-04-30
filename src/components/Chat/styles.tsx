@@ -71,11 +71,13 @@ export const Input = styled.input`
   color: rgba(0, 0, 0, 0.7);
   padding-left: 10px;
 `;
-export const Button = styled.button`
+export const Button = styled.img`
   margin: 0 auto;
   width: 25px;
   height: 25px;
   background-color: orange;
+  /* color: orange; */
+  z-index: 1;
 `;
 export const ChatContent = styled.div`
   width: 100%;
