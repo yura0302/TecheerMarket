@@ -3,17 +3,16 @@ import * as Stomp from '@stomp/stompjs';
 import * as S from './styles';
 import TopNavBar from '../TopNavBar';
 import NavBar from '../BottomNavBar';
-import ChatContainer from '../ChatContainer';
 import moment from 'moment';
 import 'moment/locale/ko';
 import { formatDateToNow } from '@/utils/formatDateToNow';
-import { useLocation } from 'react-router-dom';
-import { restFetcher } from '@/queryClient';
+import ChatContainer from '../ChatContainer';
 
 interface ChatProps {
   chatRoomId: number;
   productInfo: ChatData;
   chatInfoList: ChatInfoData[];
+  senderId: number;
 }
 export interface ChatInfoData {
   senderId: number;
@@ -40,8 +39,8 @@ export interface ChatResponse {
   prev: number;
 }
 
-const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
-  const [chatList, setChatList] = useState<ChatInfoData[]>(chatInfoList);
+const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) => {
+  const [chatList, setChatList] = useState<ChatInfoData[]>([]);
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -81,11 +80,12 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
       destination: '/pub/api/chat/sendMessage',
       body: JSON.stringify({
         chatRoomId,
-        senderId: productInfo.userId,
+        senderId: localStorage.getItem('userId'),
         message: chat,
         createdAt: productInfo.createdAt,
       }),
     });
+    console.log(senderId);
     setChatText('');
   };
 
@@ -139,8 +139,11 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
           </S.Container>
           <S.Time>{moment().format('YYYY년 MM월 DD일')}</S.Time>
 
-          {/* <S.ChatContent /> */}
-          <ChatContainer chatInfoList={chatInfoList} setChatInfoList={setChatList} />
+          <ChatContainer
+            chatInfoList={chatInfoList}
+            setChatInfoList={setChatList}
+            senderId={senderId}
+          />
           <S.ChatDiv>
             <S.Input
               type="text"

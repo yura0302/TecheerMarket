@@ -106,6 +106,7 @@ const ItemDetail: React.FC = () => {
       const response = await restFetcher({
         method: 'POST',
         path: `/chat/create/${parsedProductId}`,
+        params: { chatRoomId: 0 },
       });
       const { chatRoomId, productInfo, chatInfoList } = response.data;
       navigate(`/chat/${chatRoomId}`, {

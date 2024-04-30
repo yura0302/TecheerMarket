@@ -13,4 +13,5 @@ export interface ResChatMessage {
   productThumbnail: string;
   productTitle: string;
   message: string;
+  chatRoomId: number;
 }
