@@ -5,8 +5,9 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 10rem;
+  height: 80%;
   margin: 0 auto;
+  background-color: red;
 `;
 export const TodayDate = styled.div`
   width: 336px;

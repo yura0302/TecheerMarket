@@ -113,7 +113,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) =>
   };
   useEffect(() => {
     scrollToBottom();
-  }, [chatList]);
+  }, [chatInfoList]);
 
   useEffect(() => {
     connect();
