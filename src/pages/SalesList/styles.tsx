@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BtnDiv = styled.div`
-  padding: 2.8rem 2.2rem 0;
+  padding: 2.8rem 2rem 0;
 `;
 
 export const WriteBtn = styled.button`
@@ -21,9 +21,12 @@ export const WriteBtn = styled.button`
   }
 `;
 
+export const TabWrapper = styled.div`
+  padding: 6.2rem 2rem 0;
+`;
+
 export const Tabs = styled.ul`
   display: flex;
-  padding: 6.2rem 2rem 0;
   list-style: none;
   cursor: pointer;
 `;
@@ -32,24 +35,29 @@ export const Tab = styled.li<{ isActive: boolean }>`
   flex: 1;
   text-align: center;
   padding-bottom: 1rem;
+  border-bottom: 2px solid ${(props) => (props.isActive ? '#000' : 'transparent')};
   border-bottom: ${(props) => (props.isActive ? '2px solid #000' : '1.5px solid #D9D9D9')};
   color: ${(props) => (props.isActive ? '#000' : ' #7A7676')};
   font-size: 15px;
   font-style: normal;
   font-weight: 700;
+  transition: border-bottom 0.3s ease-in-out, color 0.3s ease-in-out;
+
   &:hover {
     cursor: pointer;
   }
 `;
 
 export const TabContent = styled.div`
-  padding: 2rem 2rem 0;
+  padding-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 `;
 
 export const EmptyList = styled.div`
+  width: 100%;
   padding-top: 2rem;
   text-align: center;
   color: #828385;

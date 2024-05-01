@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import TopNavBar from '@/components/TopNavBar';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import Loading from '@/components/Loading';
 import useFetchProductList from '@/hooks/useFetchProductList';
@@ -32,7 +32,9 @@ const PurchaseList: React.FC = () => {
         {isLoading ? (
           <Loading />
         ) : data && data?.pages.flatMap((page) => page.data).length > 0 ? (
-          <ProductForm items={data?.pages.flatMap((page) => page.data)} />
+          data.pages
+            .flatMap((page) => page.data)
+            .map((item) => <ProductForm key={item.productId} items={item} />)
         ) : (
           <S.EmptyListMessage>구매 내역이 없습니다.</S.EmptyListMessage>
         )}

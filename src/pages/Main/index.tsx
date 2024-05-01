@@ -1,6 +1,6 @@
 import NavBar from '@/components/BottomNavBar';
 import React from 'react';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import Loading from '@/components/Loading';
 import * as S from './styles';
 import logo from '../../assets/logo.svg';
@@ -8,7 +8,6 @@ import plusImage from '../../assets/plus.png';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { Link } from 'react-router-dom';
 import useFetchProductList from '@/hooks/useFetchProductList';
-
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoSearchOutline } from 'react-icons/io5';
 import AddButton from '@/components/AddButton';
@@ -49,7 +48,9 @@ const index: React.FC = () => {
             {isLoading ? (
               <Loading />
             ) : data && data?.pages.flatMap((page) => page.data).length > 0 ? (
-              <ProductForm items={data?.pages.flatMap((page) => page?.data)} />
+              data.pages
+                .flatMap((page) => page.data)
+                .map((item) => <ProductForm key={item.productId} items={item} />)
             ) : (
               <S.EmptyList>상품 목록이 없습니다.</S.EmptyList>
             )}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import TopNavBar from '@/components/TopNavBar';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import { Product } from '@/types/product';
 import { restFetcher } from '@/queryClient';
 import Loading from '@/components/Loading';
@@ -59,28 +59,30 @@ const SalesList: React.FC = () => {
         </S.WriteBtn>
       </S.BtnDiv>
 
-      <S.Tabs>
-        <S.Tab isActive={activeIndex === 0} onClick={() => handleTabClick(0)}>
-          판매 중
-        </S.Tab>
-        <S.Tab isActive={activeIndex === 1} onClick={() => handleTabClick(1)}>
-          거래 완료
-        </S.Tab>
-      </S.Tabs>
+      <S.TabWrapper>
+        <S.Tabs>
+          <S.Tab isActive={activeIndex === 0} onClick={() => handleTabClick(0)}>
+            판매 중
+          </S.Tab>
+          <S.Tab isActive={activeIndex === 1} onClick={() => handleTabClick(1)}>
+            거래 완료
+          </S.Tab>
+        </S.Tabs>
 
-      <S.TabContent>
-        {activeIndex === 0 ? (
-          onSaleItems && onSaleItems.length > 0 ? (
-            <ProductForm items={onSaleItems} state="SALE" />
+        <S.TabContent>
+          {activeIndex === 0 ? (
+            onSaleItems && onSaleItems.length > 0 ? (
+              onSaleItems.map((item) => <ProductForm items={item} state="SALE" />)
+            ) : (
+              <S.EmptyList>판매 중인 게시글이 없습니다.</S.EmptyList>
+            )
+          ) : completedItems && completedItems.length > 0 ? (
+            completedItems.map((item) => <ProductForm items={item} state="SOLD" />)
           ) : (
-            <S.EmptyList>판매 중인 게시글이 없습니다.</S.EmptyList>
-          )
-        ) : completedItems && completedItems.length > 0 ? (
-          <ProductForm items={completedItems} state="SOLD" />
-        ) : (
-          <S.EmptyList>거래 완료된 게시글이 없습니다.</S.EmptyList>
-        )}
-      </S.TabContent>
+            <S.EmptyList>거래 완료된 게시글이 없습니다.</S.EmptyList>
+          )}
+        </S.TabContent>
+      </S.TabWrapper>
     </>
   );
 };

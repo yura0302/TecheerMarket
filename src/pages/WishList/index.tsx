@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import TopNavBar from '@/components/TopNavBar';
 import * as S from './styles';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
@@ -21,7 +21,10 @@ const WishList: React.FC = () => {
         {isLoading ? (
           <Loading />
         ) : data && data?.pages.flatMap((page) => page.data).length > 0 ? (
-          <ProductForm items={data?.pages.flatMap((page) => page?.data)} />
+          // <ProductForm items={data?.pages.flatMap((page) => page?.data)} />
+          data.pages
+            .flatMap((page) => page.data)
+            .map((item) => <ProductForm key={item.productId} items={item} />)
         ) : (
           <S.EmptyList>좋아요 목록이 없습니다.</S.EmptyList>
         )}

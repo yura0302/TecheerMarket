@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { Product } from '@/types/product';
 import { getClient, restFetcher } from '@/queryClient';
@@ -11,13 +11,8 @@ type ProductFormProps = Pick<ProductProps, 'state'>;
 
 const useProductForm = ({ state }: ProductFormProps) => {
   const navigate = useNavigate();
-
-  const location = useLocation();
   const queryClient = getClient();
   const [dropDown, setDropDown] = useState<number>(0);
-
-  const isWishPage = location.pathname === '/wishlist';
-  const isSalesPage = location.pathname === '/saleslist';
 
   const mutateChangeProductState = useMutation(
     (product: Product) => {
@@ -80,10 +75,7 @@ const useProductForm = ({ state }: ProductFormProps) => {
   };
 
   return {
-    navigate,
     dropDown,
-    isWishPage,
-    isSalesPage,
     handleChangeState,
     handleUpgrade,
     handleDelete,

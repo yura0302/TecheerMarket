@@ -1,3 +1,6 @@
+const state = ['SALE', 'RESERVED', 'SOLD'] as const; // 판매중, 예약중, 판매완료
+export type StateType = (typeof state)[number];
+
 export type Product = {
   id?: number;
   productId: number;
@@ -6,9 +9,8 @@ export type Product = {
   name: string;
   price: number;
   createdAt: string;
-  productState: 'SALE' | 'RESERVED' | 'SOLD'; // 판매중, 예약중, 판매완료
-  likes: number; // 좋아요 개수
+  productState: StateType;
+  likes: number;
   views: number;
-  // userHasLiked: boolean; // 사용자가 좋아요 누른지 여부
   // chatroomCount: number; // 채팅방 개수
 };
