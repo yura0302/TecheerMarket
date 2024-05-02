@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import profile from '@/assets/profile.png';
+import profile from '@/assets/profile.svg';
 import * as S from './styles';
 import { AxiosError } from 'axios';
 import EditInfoModal from '@/components/EditInfoModal';
@@ -118,7 +118,7 @@ const EditInfo = () => {
       <S.InfoContainer>
         <S.Section style={{ paddingBottom: '4.4rem' }}>
           <S.ProfileContainer>
-            <S.ChangeImg src={userInfo?.profileUrl ? userInfo.profileUrl : profile} alt="Profile" />
+            <S.ChangeImg src={profile} alt="Profile" />
             <S.Name>{userInfo?.name}</S.Name>
           </S.ProfileContainer>
         </S.Section>

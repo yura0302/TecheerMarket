@@ -10,7 +10,6 @@ import { restFetcher } from '@/queryClient';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { UserInfo } from '@/types/userInfo';
-// import { IoCamera } from 'react-icons/io5';
 
 const NAV_ITEMS = [
   { path: '/wishlist', imgSrc: Heart, altText: 'heartIcon', label: '좋아요 목록' },
@@ -45,12 +44,7 @@ const MyPage: React.FC = () => {
 
       <S.Div>
         <S.MyPageContainer>
-          <S.ChangImg src={userInfo?.profileUrl ? userInfo.profileUrl : profile} alt="Profile" />
-
-          {/* <S.CameraIcom> */}
-          {/* <IoCamera size={10} /> */}
-          {/* </S.CameraIcom> */}
-
+          <S.ChangImg src={profile} alt="Profile" />
           <S.Name>{userInfo?.name}</S.Name>
         </S.MyPageContainer>
 

@@ -25,20 +25,6 @@ export const Name = styled.span`
   font-weight: 700;
 `;
 
-export const CameraIcom = styled.div`
-  position: absolute;
-  left: 33px;
-  top: 33px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  background-color: white;
-  border: 0.5px solid #d9d9d9;
-  border-radius: 50%;
-`;
-
 export const Title = styled.span`
   display: flex;
   color: #000;
