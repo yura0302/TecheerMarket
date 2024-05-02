@@ -50,7 +50,7 @@ const ProductForm = ({ items, state }: ProductProps) => {
   };
 
   //상품 게시글 수정
-  const handleUpgrade = (productId: string) => {
+  const handleUpgrade = (productId: number) => {
     navigate(`/item/update/${productId}`);
   };
 

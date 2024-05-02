@@ -8,7 +8,6 @@ import { restFetcher } from '@/queryClient';
 import { ChatInfoData } from '../Chat';
 
 interface IChatContainer {
-  // senderId: number;
   chatInfoList: ChatInfoData[];
   setChatInfoList: React.Dispatch<React.SetStateAction<ChatInfoData[]>>;
 }
