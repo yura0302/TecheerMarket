@@ -3,7 +3,7 @@ import React from 'react';
 import * as S from './styles';
 import useFetchProductList from '@/hooks/useFetchProductList';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import Loading from '@/components/Loading';
 import TopNavBar from '@/components/TopNavBar';
 import { useParams } from 'react-router-dom';
@@ -25,7 +25,9 @@ const index: React.FC = () => {
         {isLoading ? (
           <Loading />
         ) : data && data?.pages.flatMap((page) => page.data).length > 0 ? (
-          <ProductForm items={data?.pages.flatMap((page) => page?.data)} />
+          data.pages
+            .flatMap((page) => page.data)
+            .map((item) => <ProductForm key={item.productId} items={item} />)
         ) : (
           <S.EmptyList>상품 목록이 없습니다.</S.EmptyList>
         )}

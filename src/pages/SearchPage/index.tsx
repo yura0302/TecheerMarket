@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as S from '@/pages/SearchPage/styles';
 import useSearchThing from '@/hooks/useSearchThing';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import Loading from '@/components/Loading';
 import { QueryKeys, restFetcher } from '@/queryClient';
 import { useLocation, useSearchParams } from 'react-router-dom';
@@ -46,7 +46,9 @@ export default function SearchPage() {
         {isLoading ? (
           <Loading />
         ) : data && data.pages.flatMap((page) => page.data).length > 0 ? (
-          <ProductForm items={data.pages.map((page) => page.data).flat()} />
+          data.pages
+            .flatMap((page) => page.data)
+            .map((item) => <ProductForm key={item.productId} items={item} />)
         ) : (
           <S.EmptyList>검색 목록이 없습니다.</S.EmptyList>
         )}
