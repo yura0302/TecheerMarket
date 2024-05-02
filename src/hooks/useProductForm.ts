@@ -36,12 +36,10 @@ const useProductForm = ({ state }: ProductFormProps) => {
     },
   );
 
-  // 상품 상태 변경 핸들러 (판매 내역 페이지)
   const handleChangeState = async (product: Product) => {
     await mutateChangeProductState.mutateAsync(product);
   };
 
-  //상품 게시글 수정
   const handleUpgrade = (productId: number) => {
     navigate(`/item/update/${productId}`);
   };
@@ -65,7 +63,6 @@ const useProductForm = ({ state }: ProductFormProps) => {
     },
   );
 
-  // 삭제 버튼 핸들러 (판매 내역 페이지)
   const handleDelete = async (productId: number) => {
     await mutateDeleteProduct.mutateAsync(productId);
   };
