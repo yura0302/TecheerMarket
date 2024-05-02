@@ -28,6 +28,7 @@ const Carousel = ({ images }: CarouselProps) => {
       <S.ButtonWrapper>
         {images?.map((_, index) => (
           <S.Button
+            data-testid={`${index}`}
             key={index}
             onClick={() => handleClick(index)}
             className={index === current ? 'active' : ''}

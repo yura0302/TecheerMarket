@@ -100,6 +100,7 @@ const EditInfoModal = ({ openModal, type, onRequestClose, updateInfo }: Props) =
         <S.Label>변경할 {type === 'email' ? '이메일' : '비밀번호'}</S.Label>
         {type === 'email' && (
           <S.InputBox
+            aria-label="email"
             name="email"
             placeholder="이메일을 입력해주세요."
             type="text"
@@ -119,7 +120,7 @@ const EditInfoModal = ({ openModal, type, onRequestClose, updateInfo }: Props) =
         <S.ErrorMessage show={typeErrorMessage !== ''}>{typeErrorMessage}</S.ErrorMessage>
       </S.Contaniner>
 
-      <S.EditBtn onClick={handleUpdate} disabled={!isCorrect}>
+      <S.EditBtn onClick={handleUpdate} disabled={!isCorrect} aria-label="변경하기">
         변경하기
       </S.EditBtn>
     </Modal>

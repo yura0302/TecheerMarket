@@ -1,12 +1,13 @@
 import { Meta, StoryObj } from '@storybook/react';
 import Loading from '../../components/Loading';
 
-export default {
+const meta: Meta<typeof Loading> = {
   title: 'Component/Loading',
   component: Loading,
-  tags: ['autodocs'],
-} as Meta;
+};
 
-type Template = StoryObj<typeof Loading>;
+export default meta;
 
-export const Basic: Template = {};
+type Story = StoryObj<typeof Loading>;
+
+export const Basic: Story = {};

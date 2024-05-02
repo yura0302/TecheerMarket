@@ -4,7 +4,7 @@ import Chat from '@/assets/chatIcon.svg';
 import Circle from '@/assets/circle.svg';
 import { useState } from 'react';
 import { Product } from '@/types/product';
-import * as S from './styles';
+import * as S from '@/components/ProductForm/styles';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 
 interface ProductProps {
@@ -57,7 +57,7 @@ const ProductForm = ({ items, state, location }: ProductProps) => {
                 </S.MenuBar>
               )}
               {dropDown === item.productId && (
-                <S.Dropdown>
+                <S.Dropdown data-testid={`dropdown-${item.productId}`}>
                   <S.DropdownItem>
                     {state !== 'SOLD' ? '거래 완료로 변경' : '판매 중으로 변경'}
                   </S.DropdownItem>
