@@ -1,14 +1,18 @@
 import * as S from '@/pages/ChatList/style';
 import TopNavBar from '@/components/TopNavBar';
-import NavBar from '@/components/BottomNavBar';
 import ChatForm from '@/components/ChatForm';
 import Loading from '@/components/Loading';
 import useFetchProductList from '@/hooks/useFetchProductList';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
+import { restFetcher } from '@/queryClient';
 
 export default function ChatList() {
+  restFetcher({
+    method: 'GET',
+    path: '/chat/room',
+  });
   const path = '/chat/room',
-    queryKey = 'chat';
+    queryKey = 'chat_room';
   const { data, isLoading, fetchNextPage } = useFetchProductList({ path, queryKey });
   useInfiniteScroll({ fetchCallback: fetchNextPage });
 
