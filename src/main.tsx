@@ -28,13 +28,14 @@ Sentry.init({
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <BrowserRouter>
       <GlobalStyle />
       <App />
     </BrowserRouter>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 );
 
 axios.defaults.withCredentials = true;
 Modal.setAppElement('#root');
+

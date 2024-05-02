@@ -1,19 +1,17 @@
-export interface ResChatMessage {
-  id: number;
-  productId: number;
-  productTitle: string;
-  productLocation: string;
-  productPrice: number;
-  productThumbnail: string;
-  chatPartnerName: string;
+export interface ChatListProps {
+  items: ResChatMessage[];
 }
 
-export type ChatProduct = {
+export interface ResChatMessage {
+  createdAt: string;
+  chatPartnerName: string;
+  currentChatAt?: string;
   id: number;
   productId: number;
-  productTitle: string;
   productLocation: string;
   productPrice: number;
   productThumbnail: string;
-  chatPartnerName: string;
-};
+  productTitle: string;
+  message: string;
+  chatRoomId: number;
+}

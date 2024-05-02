@@ -10,14 +10,14 @@ export const MyMessage = styled.div`
   min-height: 15px;
   min-width: 30px;
   max-width: 680px;
-  background-color: white;
-  color: #717171;
+  background-color: #fd8944;
+  color: black;
+  font-weight: bold;
   display: flex;
   justify-content: left;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.mainColor};
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 14px;
   margin: 0 auto;
   margin-bottom: 5px;
   padding: 10px 10px;
@@ -26,8 +26,6 @@ export const MyMessage = styled.div`
   &::before {
     content: '';
     position: absolute;
-    border-style: solid;
-    border-width: 8px 0 8px 9px;
     border-color: transparent ${(props) => props.theme.mainColor};
     display: block;
     width: 0;
@@ -39,9 +37,7 @@ export const MyMessage = styled.div`
   &::after {
     content: '';
     position: absolute;
-    border-style: solid;
-    border-width: 8px 0 8px 9px;
-    border-color: transparent #ffffff;
+    border-color: transparent #fd8944;
     display: block;
     width: 0;
     z-index: 1;
@@ -50,7 +46,8 @@ export const MyMessage = styled.div`
   }
 `;
 export const CreatedTime = styled.p`
-  margin-right: 5px;
-  font-size: 15px;
+  margin-right: 7px;
+  font-size: 13px;
   color: #717171;
+  font-weight: bold;
 `;

@@ -4,3 +4,7 @@ export type UserInfo = {
   social: string;
   profileUrl: string | null;
 };
+
+export interface IUserInfo {
+  userId: number;
+}

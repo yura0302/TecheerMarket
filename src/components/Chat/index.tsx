@@ -3,47 +3,56 @@ import * as Stomp from '@stomp/stompjs';
 import * as S from './styles';
 import TopNavBar from '../TopNavBar';
 import NavBar from '../BottomNavBar';
-import 'moment/locale/ko';
-moment.locale('ko');
 import moment from 'moment';
+import 'moment/locale/ko';
+import { formatDateToNow } from '@/utils/formatDateToNow';
 import ChatContainer from '../ChatContainer';
+import ChatBtn from '@/assets/ChatBtn.svg';
 
 interface ChatProps {
   chatRoomId: number;
-  data: ChatData;
+  productInfo: ChatData;
+  chatInfoList: ChatInfoData[];
+  // senderId: number;
+}
+export interface ChatInfoData {
+  senderId: number;
+  message: string;
+  createdAt: string;
 }
 
-export interface ChatContent {
-  type: string;
-  chatRoomId: number;
-  data: ChatData;
-}
 export interface ChatData {
-  chatRoomId: number;
-  senderEmail: string;
-  message?: string;
-  createdAt: Date | string;
+  productId: number;
+  title: string;
+  thumbnailURL?: string;
+  name: string;
+  userEmail: string;
+  userId: number;
+  price: number;
+  createdAt: string;
+  message: string;
 }
-
 export interface ChatResponse {
-  content: ChatContent[];
+  content: ChatInfoData[];
   hasNext: boolean;
   hasPrev: boolean;
   next: number;
   prev: number;
 }
 
-const Chat = ({ chatRoomId, data }: ChatProps) => {
-  const [chatList, setChatList] = useState<ChatContent[]>([]);
+const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
+  const [chatList, setChatList] = useState<ChatInfoData[]>([]);
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/sub/chat/room/${chatRoomId}`, (body) => {
       const json_body = JSON.parse(body.body);
-      setChatList((_chat_list: ChatContent[]) => [..._chat_list, json_body]);
+      setChatList((chat_list: ChatInfoData[]) => [...chat_list, json_body]);
     });
-  }, []);
+    console.error();
+  }, [chatRoomId]);
 
   const connect = useCallback(() => {
     client.current = new Stomp.Client({
@@ -61,17 +70,20 @@ const Chat = ({ chatRoomId, data }: ChatProps) => {
   const disconnect = () => {
     client.current?.deactivate();
   };
-
   const publish = (chat: string) => {
-    if (!client.current?.connected) return;
-    if (chat.trim() === '') return;
+    if (!client.current?.connected) {
+      return;
+    }
+    if (chat.trim() === '') {
+      return;
+    }
     client.current?.publish({
       destination: '/pub/api/chat/sendMessage',
       body: JSON.stringify({
-        chatRoomId: data.chatRoomId,
-        senderEmail: data.senderEmail,
+        chatRoomId,
+        senderId: localStorage.getItem('userId'),
         message: chat,
-        createAt: data.createdAt,
+        createdAt: productInfo.createdAt,
       }),
     });
     setChatText('');
@@ -82,48 +94,69 @@ const Chat = ({ chatRoomId, data }: ChatProps) => {
   };
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey && e.nativeEvent.isComposing === false) {
+    if (
+      e.currentTarget.value.trim() !== '' &&
+      e.key === 'Enter' &&
+      !e.shiftKey &&
+      e.nativeEvent.isComposing === false
+    ) {
       e.preventDefault();
       publish(chatText);
     }
   };
 
+  const scrollToBottom = () => {
+    chatContainerRef.current?.scrollTo({
+      top: chatContainerRef.current.scrollHeight,
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatInfoList]);
+
   useEffect(() => {
     connect();
     return () => disconnect();
   }, [connect]);
-
   return (
-    // 수정
     <>
-      <TopNavBar page="홍다연" />
-      <S.Container>
-        <S.Div>
-          <S.ProductImage />
-          <S.Texts>
-            <S.ProductName>갤럭시 팔아여</S.ProductName>
-            <S.RowDiv>
-              <S.Writer>홍다연</S.Writer>
-              <S.DayText>3일전</S.DayText>
-            </S.RowDiv>
-            <S.Price>45000원</S.Price>
-          </S.Texts>
-        </S.Div>
-      </S.Container>
-      <S.Time>2022-02-22</S.Time>
-      <S.ChatContent />
-      <ChatContainer chatList={chatList} setChatList={setChatList} />
-      <S.ChatDiv>
-        <S.Input
-          type="text"
-          placeholder="메시지 보내기"
-          onKeyDown={onKeyDown}
-          onChange={onTyping}
-          value={chatText}
-        />
-        <S.Button onClick={() => publish(chatText)} />
-      </S.ChatDiv>
-      <NavBar />
+      {productInfo && (
+        <>
+          <TopNavBar page={productInfo.name} />
+          <S.Container>
+            <S.Div>
+              <S.ProductImage src={productInfo?.thumbnailURL}></S.ProductImage>
+              <S.Texts>
+                <S.ProductName>{productInfo.name}</S.ProductName>
+                <S.RowDiv>
+                  <S.Writer>{productInfo.title}</S.Writer>
+                  <S.DayText>{formatDateToNow(productInfo.createdAt as string)}</S.DayText>
+                </S.RowDiv>
+                <S.Price>{productInfo.price}원</S.Price>
+              </S.Texts>
+            </S.Div>
+          </S.Container>
+          <ChatContainer
+            chatInfoList={chatInfoList}
+            setChatInfoList={setChatList}
+            // senderId={senderId}
+          />
+          <S.BottomContainer>
+            <S.ChatDiv>
+              <S.Input
+                type="text"
+                placeholder="메시지 보내기"
+                onChange={onTyping}
+                onKeyDown={onKeyDown}
+                value={chatText}
+              />
+              <S.Button src={ChatBtn} onClick={() => publish(chatText)} />
+            </S.ChatDiv>
+            <NavBar />
+          </S.BottomContainer>
+        </>
+      )}
     </>
   );
 };

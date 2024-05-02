@@ -17,9 +17,7 @@ interface ProductProps {
 
 const ProductForm = ({ items, state }: ProductProps) => {
   const navigate = useNavigate();
-
   const { productId } = useParams();
-
   const location = useLocation();
   const queryClient = getClient();
   const [dropDown, setDropDown] = useState<number>(0);
