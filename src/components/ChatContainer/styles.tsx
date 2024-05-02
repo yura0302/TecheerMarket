@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: relative;
   display: flex;
+  position: fixed;
   flex-direction: column;
-  width: 100%;
-  height: 80%;
-  margin: 0 auto;
-  background-color: red;
+  bottom: 12rem;
+  width: 57%;
+  max-height: calc(100% - 30rem);
+  overflow-y: auto;
 `;
 export const TodayDate = styled.div`
   width: 336px;

@@ -1,15 +1,12 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  /* position: relative; */
-  position: static;
   width: 100%;
   height: 10rem;
   border-radius: 10px;
   background-color: rgba(217, 217, 217, 0.15);
   margin-bottom: 1rem;
   align-items: center;
-  background-color: beige;
 `;
 export const Div = styled.div`
   display: flex;
@@ -54,13 +51,11 @@ export const Price = styled.div`
 `;
 export const ChatDiv = styled.div`
   height: 200px;
-  /* position: fixed; */
   position: static;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* margin-top: 5rem; */
 `;
 export const Input = styled.input`
   border-radius: 10px;
@@ -80,4 +75,10 @@ export const Button = styled.img`
   width: 25px;
   height: 25px;
   z-index: 1;
+  margin-left: 5px;
+`;
+export const BottomContainer = styled.div`
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
 `;

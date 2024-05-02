@@ -142,17 +142,19 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) =>
             setChatInfoList={setChatList}
             senderId={senderId}
           />
-          <S.ChatDiv>
-            <S.Input
-              type="text"
-              placeholder="메시지 보내기"
-              onChange={onTyping}
-              onKeyDown={onKeyDown}
-              value={chatText}
-            />
-            <S.Button src={ChatBtn} onClick={() => publish(chatText)} />
-          </S.ChatDiv>
-          <NavBar />
+          <S.BottomContainer>
+            <S.ChatDiv>
+              <S.Input
+                type="text"
+                placeholder="메시지 보내기"
+                onChange={onTyping}
+                onKeyDown={onKeyDown}
+                value={chatText}
+              />
+              <S.Button src={ChatBtn} onClick={() => publish(chatText)} />
+            </S.ChatDiv>
+            <NavBar />
+          </S.BottomContainer>
         </>
       )}
     </>
