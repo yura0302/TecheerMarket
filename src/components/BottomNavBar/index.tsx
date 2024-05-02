@@ -21,7 +21,7 @@ const BottomNavBar = () => {
         </S.Button>
       </Link>
 
-      <Link to="/chat" style={{ textDecoration: 'none' }}>
+      <Link to="/chat/room" style={{ textDecoration: 'none' }}>
         <S.Button>
           <S.LogoImage src={chatImage} alt="로고 이미지" />
           채팅

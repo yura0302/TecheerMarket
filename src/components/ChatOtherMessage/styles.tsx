@@ -9,14 +9,14 @@ export const OtherMessage = styled.div`
   min-height: 15px;
   min-width: 30px;
   max-width: 680px;
-  background-color: white;
-  color: #717171;
+  background-color: #ececec;
+  color: black;
+  font-weight: bold;
   display: flex;
-  justify-content: left;
+  justify-content: right;
   align-items: center;
-  border: 1px solid ${(props) => props.theme.subColor};
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 14px;
   margin: 0 auto;
   margin-bottom: 5px;
   padding: 10px 10px;
@@ -25,21 +25,17 @@ export const OtherMessage = styled.div`
   &::before {
     content: '';
     position: absolute;
-    border-style: solid;
-    border-width: 8px 9px 8px 0;
     border-color: transparent ${(props) => props.theme.subColor};
     display: block;
     width: 0;
     z-index: 0;
-    left: -10px;
+    left: 10px;
     top: 9px;
   }
 
   &::after {
     content: '';
     position: absolute;
-    border-style: solid;
-    border-width: 8px 9px 8px 0;
     border-color: transparent #ffffff;
     display: block;
     width: 0;
@@ -49,7 +45,8 @@ export const OtherMessage = styled.div`
   }
 `;
 export const CreatedTime = styled.p`
-  margin-left: 5px;
-  font-size: 15px;
+  margin-left: 7px;
+  font-size: 13px;
+  font-weight: bold;
   color: #717171;
 `;
