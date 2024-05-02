@@ -13,7 +13,7 @@ interface ChatProps {
   chatRoomId: number;
   productInfo: ChatData;
   chatInfoList: ChatInfoData[];
-  senderId: number;
+  // senderId: number;
 }
 export interface ChatInfoData {
   senderId: number;
@@ -40,7 +40,7 @@ export interface ChatResponse {
   prev: number;
 }
 
-const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) => {
+const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
   const [chatList, setChatList] = useState<ChatInfoData[]>([]);
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
@@ -140,7 +140,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList, senderId }: ChatProps) =>
           <ChatContainer
             chatInfoList={chatInfoList}
             setChatInfoList={setChatList}
-            senderId={senderId}
+            // senderId={senderId}
           />
           <S.BottomContainer>
             <S.ChatDiv>

@@ -8,12 +8,12 @@ import { restFetcher } from '@/queryClient';
 import { ChatInfoData } from '../Chat';
 
 interface IChatContainer {
-  senderId: number;
+  // senderId: number;
   chatInfoList: ChatInfoData[];
   setChatInfoList: React.Dispatch<React.SetStateAction<ChatInfoData[]>>;
 }
 const BASE_URL = 'http://techeermarket.ap-northeast-2.elasticbeanstalk.com/api';
-const ChatContainer = ({ chatInfoList, setChatInfoList, senderId }: IChatContainer) => {
+const ChatContainer = ({ chatInfoList, setChatInfoList }: IChatContainer) => {
   const [IsUserId, setIsUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -21,12 +21,12 @@ const ChatContainer = ({ chatInfoList, setChatInfoList, senderId }: IChatContain
       try {
         const response = await restFetcher({
           method: 'GET',
-          path: `${BASE_URL}/users/id`, // Make sure this path is correct
+          path: `${BASE_URL}/users/id`,
         });
-        setIsUserId(response.data.userId); // Assuming the ID is returned as { data: userId }
+        setIsUserId(response.data.userId);
         setLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch user ID:', error);
+      } catch (err) {
+        console.log(err);
         setLoading(false);
       }
     };

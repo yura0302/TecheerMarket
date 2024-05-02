@@ -1,4 +1,3 @@
-import React from 'react';
 import { ChatInfoData } from '../Chat';
 import * as S from '@/components/ChatOtherMessage/styles';
 import moment from 'moment';

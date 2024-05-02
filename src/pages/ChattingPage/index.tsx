@@ -4,7 +4,7 @@ import Chat from '@/components/Chat';
 
 const ChattingPage = () => {
   const location = useLocation();
-  const { productInfo, chatRoomId, chatInfoList, userId } = location.state;
+  const { productInfo, chatRoomId, chatInfoList } = location.state;
 
   const [chatList, setChatList] = useState(chatInfoList);
 

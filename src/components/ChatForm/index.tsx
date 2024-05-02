@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as S from './style';
 import profile from '../../assets/profile.svg';
 import { restFetcher } from '@/queryClient';
