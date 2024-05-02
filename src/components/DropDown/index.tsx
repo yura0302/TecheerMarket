@@ -2,12 +2,8 @@ import useProductForm from '@/hooks/useProductForm';
 import { useProductContext } from '../ProductForm';
 import * as S from './styles';
 
-interface DropDownProps {
-  state?: string;
-}
-
-const DropDown = ({ state }: DropDownProps) => {
-  const { items } = useProductContext();
+const DropDown = () => {
+  const { items, state } = useProductContext();
   const { handleChangeState, handleUpgrade, handleDelete } = useProductForm({ state });
 
   return (
