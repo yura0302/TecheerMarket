@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import profile from '@/assets/profile.png';
+import profile from '@/assets/profile.svg';
 import * as S from './styles';
 import { AxiosError } from 'axios';
 import EditInfoModal from '@/components/EditInfoModal';
@@ -10,15 +10,18 @@ import { UserInfo } from '@/types/userInfo';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { clearLocalStorage } from '@/hooks/useTokenRefreshTimer';
 import { ApiResponseType } from '@/types/apiResponseType';
+import ModalPortal from '@/components/EditInfoModal/ModalPortal';
+
+export type ModalType = 'email' | 'password';
 
 const EditInfo = () => {
   const navigate = useNavigate();
   const queryClient = getClient();
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [currentModalType, setCurrentModalType] = useState<string>('');
+  const [currentModalType, setCurrentModalType] = useState<ModalType>('email');
 
-  const openModal = (type: string) => {
+  const openModal = (type: ModalType) => {
     setCurrentModalType(type);
     setIsOpenModal(true);
   };
@@ -82,13 +85,17 @@ const EditInfo = () => {
   });
 
   const handleLogout = async () => {
-    try {
-      await mutateLogout.mutateAsync();
-      clearLocalStorage();
-      navigate('/', { replace: true });
-    } catch (error) {
-      alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
-    }
+    clearLocalStorage();
+    alert('로그아웃 되었습니다.');
+    window.location.href = '/';
+    // 로그아웃 API 코드
+    // try {
+    //   await mutateLogout.mutateAsync();
+    //   clearLocalStorage();
+    //   navigate('/', { replace: true });
+    // } catch (error) {
+    //   alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
+    // }
   };
 
   const mutateDeleteUser = useMutation(() => {
@@ -115,7 +122,7 @@ const EditInfo = () => {
       <S.InfoContainer>
         <S.Section style={{ paddingBottom: '4.4rem' }}>
           <S.ProfileContainer>
-            <S.ChangeImg src={userInfo?.profileUrl ? userInfo.profileUrl : profile} alt="Profile" />
+            <S.ChangeImg src={profile} alt="Profile" />
             <S.Name>{userInfo?.name}</S.Name>
           </S.ProfileContainer>
         </S.Section>
@@ -135,12 +142,16 @@ const EditInfo = () => {
           <S.ChangeBtn onClick={() => openModal('password')}>변경</S.ChangeBtn>
         </S.Section>
 
-        <EditInfoModal
-          openModal={isOpenModal}
-          type={currentModalType}
-          onRequestClose={closeModal}
-          updateInfo={handleInfoChange}
-        />
+        <div id="modal" />
+        {isOpenModal && (
+          <ModalPortal>
+            <EditInfoModal
+              type={currentModalType}
+              onRequestClose={closeModal}
+              updateInfo={handleInfoChange}
+            />
+          </ModalPortal>
+        )}
 
         <S.Section2>
           <S.DelBtn onClick={handleLogout}>로그아웃</S.DelBtn>

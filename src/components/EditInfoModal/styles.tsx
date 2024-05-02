@@ -1,5 +1,35 @@
 import styled from 'styled-components';
 
+export const ModalOverlay = styled.div`
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background-color: rgba(217, 217, 217, 0.8);
+`;
+
+export const ModalContainer = styled.div`
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 32rem;
+  height: 16rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  border-radius: 20px;
+
+  background-color: #fff;
+`;
+
 export const BtnArea = styled.button`
   position: absolute;
   top: 10px;
@@ -16,7 +46,7 @@ export const BtnArea = styled.button`
   }
 `;
 
-export const Contaniner = styled.div`
+export const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 3.6rem;

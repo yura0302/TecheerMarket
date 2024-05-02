@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Div = styled.div`
   width: 100%;
-  padding-bottom: 1rem;
 `;
 
 export const Container = styled.div`
@@ -42,7 +41,7 @@ export const TextDiv = styled.div`
   font-style: normal;
 `;
 
-export const TitleDiv = styled.div`
+export const TitleDiv = styled.h3`
   width: 27rem;
   font-size: 13px;
   font-weight: 700;
@@ -52,7 +51,9 @@ export const TitleDiv = styled.div`
   text-overflow: ellipsis;
 `;
 
-export const InfoDiv = styled.div`
+export const Wrapper = styled.div``;
+
+export const InfoDiv = styled.p`
   font-size: 10px;
   font-weight: 400;
 `;
@@ -63,7 +64,7 @@ export const InfoContent = styled.span`
   font-weight: 400;
 `;
 
-export const PriceDiv = styled.div`
+export const PriceDiv = styled.p`
   font-size: 10px;
   font-weight: 700;
 `;
@@ -91,7 +92,6 @@ export const Image = styled.svg`
   transition: transform 0.3s ease-out;
   cursor: pointer;
 
-  // 마우스 클릭 시 스케일 효과 적용
   &:active {
     transform: scale(1.2);
   }
@@ -111,32 +111,4 @@ export const MenuBar = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-`;
-
-export const Dropdown = styled.div`
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 10rem;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: center;
-  border-radius: 10px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  background-color: #fff;
-  z-index: 10;
-`;
-
-export const DropdownItem = styled.span`
-  width: 100%;
-  padding: 1rem 1rem;
-  font-size: 10px;
-  font-weight: 400;
-
-  &:hover {
-    cursor: pointer;
-    background-color: rgba(217, 217, 217, 0.15);
-  }
 `;

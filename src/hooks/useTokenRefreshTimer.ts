@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const JWT_EXPIRY_TIME = 1000 * 60 * 60 * 3 - 1000 * 60 * 10; // 3시간 - 10분
+const BASE_URL = import.meta.env.VITE_APP_URL;
 
 // 액세스 토큰 만료 시간이 지나면 리프레쉬 토큰으로 재발급
 export const useTokenRefreshTimer = () => {
@@ -28,12 +29,9 @@ export const useTokenRefreshTimer = () => {
 
   const refreshTokens = async () => {
     try {
-      const response = await axios.get(
-        'http://techeermarket.ap-northeast-2.elasticbeanstalk.com/api/users/authorize',
-        {
-          headers: { 'Refresh-Token': `${localStorage.getItem('refresh-token')}` },
-        },
-      );
+      const response = await axios.get(`${BASE_URL}/user/authorize`, {
+        headers: { 'Refresh-Token': `${localStorage.getItem('refresh-token')}` },
+      });
       const newAuthTokens = response.headers['access-token'];
       localStorage.setItem('access-token', newAuthTokens);
 
