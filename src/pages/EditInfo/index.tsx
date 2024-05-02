@@ -10,15 +10,18 @@ import { UserInfo } from '@/types/userInfo';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { clearLocalStorage } from '@/hooks/useTokenRefreshTimer';
 import { ApiResponseType } from '@/types/apiResponseType';
+import ModalPortal from '@/components/EditInfoModal/ModalPortal';
+
+export type ModalType = 'email' | 'password';
 
 const EditInfo = () => {
   const navigate = useNavigate();
   const queryClient = getClient();
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [currentModalType, setCurrentModalType] = useState<string>('');
+  const [currentModalType, setCurrentModalType] = useState<ModalType>('email');
 
-  const openModal = (type: string) => {
+  const openModal = (type: ModalType) => {
     setCurrentModalType(type);
     setIsOpenModal(true);
   };
@@ -135,12 +138,16 @@ const EditInfo = () => {
           <S.ChangeBtn onClick={() => openModal('password')}>변경</S.ChangeBtn>
         </S.Section>
 
-        <EditInfoModal
-          openModal={isOpenModal}
-          type={currentModalType}
-          onRequestClose={closeModal}
-          updateInfo={handleInfoChange}
-        />
+        <div id="modal" />
+        {isOpenModal && (
+          <ModalPortal>
+            <EditInfoModal
+              type={currentModalType}
+              onRequestClose={closeModal}
+              updateInfo={handleInfoChange}
+            />
+          </ModalPortal>
+        )}
 
         <S.Section2>
           <S.DelBtn onClick={handleLogout}>로그아웃</S.DelBtn>

@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import Modal from 'react-modal';
 import * as S from './styles';
 import { IoClose } from 'react-icons/io5';
+import { ModalType } from '@/pages/EditInfo';
 
 interface Props {
-  openModal: boolean;
-  type: string; // email, password
+  type: ModalType;
   onRequestClose?: () => void;
   updateInfo?: (type: string, newValue: string) => void;
 }
 
-const EditInfoModal = ({ openModal, type, onRequestClose, updateInfo }: Props) => {
+const EditInfoModal = ({ type, onRequestClose, updateInfo }: Props) => {
   const [inputValue, setInputValue] = useState<string>('');
   const [typeErrorMessage, setTypeErrorMessage] = useState<string>(''); // 에러 메시지
   const [isCorrect, setIsCorrect] = useState<boolean>(false); // 입력값이 올바른지 표시
@@ -60,70 +59,42 @@ const EditInfoModal = ({ openModal, type, onRequestClose, updateInfo }: Props) =
   };
 
   return (
-    <Modal
-      isOpen={openModal}
-      onRequestClose={onRequestClose}
-      style={{
-        overlay: {
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(217, 217, 217, 0.8)',
-        },
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          transform: 'translate(-50%, -50%)',
-          width: '32rem',
-          height: '16rem',
-          border: 0,
-          background: '#fff',
-          overflow: 'auto',
-          borderRadius: '20px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'column',
-        },
-      }}
-      contentLabel="Modal"
-    >
-      <S.BtnArea onClick={onRequestClose}>
-        <IoClose size={20} />
-      </S.BtnArea>
+    <S.ModalOverlay>
+      <S.ModalContainer>
+        <S.BtnArea onClick={onRequestClose}>
+          <IoClose size={20} />
+        </S.BtnArea>
 
-      <S.Contaniner>
-        <S.Label>변경할 {type === 'email' ? '이메일' : '비밀번호'}</S.Label>
-        {type === 'email' && (
-          <S.InputBox
-            aria-label="email"
-            name="email"
-            placeholder="이메일을 입력해주세요."
-            type="text"
-            value={inputValue}
-            onChange={handleChangeInput}
-          />
-        )}
-        {type === 'password' && (
-          <S.InputBox
-            name="password"
-            placeholder="비밀번호를 입력해주세요."
-            type="password"
-            value={inputValue}
-            onChange={handleChangeInput}
-          />
-        )}
-        <S.ErrorMessage show={typeErrorMessage !== ''}>{typeErrorMessage}</S.ErrorMessage>
-      </S.Contaniner>
+        <S.Container>
+          <S.Label>변경할 {type === 'email' ? '이메일' : '비밀번호'}</S.Label>
+          {type === 'email' && (
+            <S.InputBox
+              aria-label="email"
+              name="email"
+              placeholder="이메일을 입력해주세요."
+              type="text"
+              value={inputValue}
+              onChange={handleChangeInput}
+            />
+          )}
+          {type === 'password' && (
+            <S.InputBox
+              data-testid="password"
+              name="password"
+              placeholder="비밀번호를 입력해주세요."
+              type="password"
+              value={inputValue}
+              onChange={handleChangeInput}
+            />
+          )}
+          <S.ErrorMessage show={typeErrorMessage !== ''}>{typeErrorMessage}</S.ErrorMessage>
+        </S.Container>
 
-      <S.EditBtn onClick={handleUpdate} disabled={!isCorrect} aria-label="변경하기">
-        변경하기
-      </S.EditBtn>
-    </Modal>
+        <S.EditBtn onClick={handleUpdate} disabled={!isCorrect} aria-label="변경하기">
+          변경하기
+        </S.EditBtn>
+      </S.ModalContainer>
+    </S.ModalOverlay>
   );
 };
 
