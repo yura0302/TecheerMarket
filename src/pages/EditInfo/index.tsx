@@ -85,13 +85,17 @@ const EditInfo = () => {
   });
 
   const handleLogout = async () => {
-    try {
-      await mutateLogout.mutateAsync();
-      clearLocalStorage();
-      navigate('/', { replace: true });
-    } catch (error) {
-      alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
-    }
+    clearLocalStorage();
+    alert('로그아웃 되었습니다.');
+    window.location.href = '/';
+    // 로그아웃 API 코드
+    // try {
+    //   await mutateLogout.mutateAsync();
+    //   clearLocalStorage();
+    //   navigate('/', { replace: true });
+    // } catch (error) {
+    //   alert('로그아웃에 실패했습니다. 다시 시도해주세요.');
+    // }
   };
 
   const mutateDeleteUser = useMutation(() => {
