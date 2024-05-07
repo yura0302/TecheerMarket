@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const MainDiv = styled.div`
@@ -264,15 +264,14 @@ export const Button = styled.button`
   flex-grow: 10;
   z-index: 1;
   display: flex;
-  width: 75px;
-  height: 75px;
   border: none;
   cursor: pointer;
-  position: absolute;
-  bottom: 10%; // 하단 여백 조정
-  right: 5%; // 우측 여백 조정
+  position: fixed;
+  bottom: 40px;
+  right: calc(50vw - 225px);
+  margin-bottom: 55px;
   background: no-repeat center center;
-  background-size: contain; /* 이미지 크기에 맞게 조정 */
+  color: #fd8944;
 `;
 
 export const ProductContainer = styled.div`
