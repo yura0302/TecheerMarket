@@ -9,7 +9,7 @@ import useProductForm from '@/hooks/useProductForm';
 import DropDown from '@/components/DropDown';
 
 const IconLayout = () => {
-  const { items, state } = useProductContext();
+  const { items } = useProductContext();
   const { dropDown, handleChangeDropDown } = useProductForm({});
   const location = useLocation();
 
@@ -39,7 +39,7 @@ const IconLayout = () => {
         </S.MenuBar>
       )}
 
-      {dropDown === items.productId && <DropDown state={state} />}
+      {dropDown === items.productId && <DropDown />}
     </S.Section>
   );
 };

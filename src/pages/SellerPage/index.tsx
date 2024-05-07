@@ -4,7 +4,7 @@ import * as S from './styles';
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import ProductForm from '@/components/ProductForm';
+import ProductForm from '@/components/ProductForm/ProductForm';
 import { restFetcher } from '@/queryClient';
 import Loading from '@/components/Loading';
 import { useLocation } from 'react-router-dom';
@@ -63,12 +63,12 @@ const SellerPage = () => {
       <S.TabContent>
         {activeIndex === 0 ? (
           onSaleItems && onSaleItems.length > 0 ? (
-            <ProductForm items={onSaleItems} />
+            onSaleItems.map((item) => <ProductForm items={item} state="SALE" />)
           ) : (
             <S.EmptyList>판매 중인 게시글이 없습니다.</S.EmptyList>
           )
         ) : completedItems && completedItems.length > 0 ? (
-          <ProductForm items={completedItems} />
+          completedItems.map((item) => <ProductForm items={item} state="SOLD" />)
         ) : (
           <S.EmptyList>거래 완료된 게시글이 없습니다.</S.EmptyList>
         )}

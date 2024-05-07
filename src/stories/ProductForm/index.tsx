@@ -56,15 +56,6 @@ const ProductForm = ({ items, state, location }: ProductProps) => {
                   <S.Image style={{ backgroundImage: `url(${Circle})` }} />
                 </S.MenuBar>
               )}
-              {dropDown === item.productId && (
-                <S.Dropdown data-testid={`dropdown-${item.productId}`}>
-                  <S.DropdownItem>
-                    {state !== 'SOLD' ? '거래 완료로 변경' : '판매 중으로 변경'}
-                  </S.DropdownItem>
-                  <S.DropdownItem>게시글 수정</S.DropdownItem>
-                  <S.DropdownItem>삭제</S.DropdownItem>
-                </S.Dropdown>
-              )}
             </S.Section>
           </S.ProductContent>
         </S.Container>
