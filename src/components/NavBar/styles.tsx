@@ -14,7 +14,6 @@ export const NavbarContainer = styled.div`
 `;
 
 export const User = styled.div`
-
   border-bottom: 0.07rem solid #ffffff;
 
   // border-bottom: 0.07rem solid #000000;
@@ -26,9 +25,9 @@ export const User = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 55rem; /* User 컴포넌트의 고정 너비 설정 */
-  z-index: 2; /* 필요에 따라 z-index 조정 */
-  font-size: 2rem; /* 글씨 크기 조정 */
+  width: 55rem;
+  z-index: 2;
+  font-size: 2rem;
   flex-grow: 1;
   background-color: #ffffff;
   padding-bottom: 2rem;
@@ -41,10 +40,9 @@ export const Button = styled.button`
   background-color: white;
   text-decoration: none;
   flex-direction: column;
-  align-items: center; // 홈 글자와 로고 이미지를 세로로 중앙 정렬
+  align-items: center;
 `;
 
-// 이미지를 담은 컴포넌트 생성
 export const LogoImage = styled.img`
   width: 10%; // 이미지의 너비 설정
   height: 100%; // 이미지의 높이 자동 조정

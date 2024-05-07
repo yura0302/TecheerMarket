@@ -8,6 +8,8 @@ import 'moment/locale/ko';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 import ChatContainer from '../ChatContainer';
 import ChatBtn from '@/assets/ChatBtn.svg';
+import ProductForm from '../ProductForm/ProductForm';
+import { useNavigate } from 'react-router-dom';
 
 interface ChatProps {
   chatRoomId: number;
@@ -45,7 +47,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
   const chatContainerRef = useRef<HTMLDivElement>(null);
-
+  const navigate = useNavigate();
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/sub/chat/room/${chatRoomId}`, (body) => {
       const json_body = JSON.parse(body.body);
@@ -124,7 +126,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
       {productInfo && (
         <>
           <TopNavBar page={productInfo.name} />
-          <S.Container>
+          <S.Container onClick={() => navigate(`/item/${productInfo.productId}`)}>
             <S.Div>
               <S.ProductImage src={productInfo?.thumbnailURL}></S.ProductImage>
               <S.Texts>
