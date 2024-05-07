@@ -11,7 +11,6 @@ export const Container = styled.div`
   border-radius: 10px;
   background-color: rgba(217, 217, 217, 0.15);
   margin-bottom: 1.6rem;
-
   &:hover {
     cursor: pointer;
   }
@@ -88,10 +87,8 @@ export const Image = styled.svg`
   background-repeat: no-repeat;
   background-position: 50% 50%;
   background-size: contain;
-
   transition: transform 0.3s ease-out;
   cursor: pointer;
-
   &:active {
     transform: scale(1.2);
   }

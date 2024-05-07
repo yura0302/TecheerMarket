@@ -58,7 +58,6 @@ const index: React.FC = () => {
 
       <Link to="/write">
         <S.Button>
-          {/* <img src={plusImage} alt="" /> */}
           <FaCirclePlus size={55} />
         </S.Button>
       </Link>

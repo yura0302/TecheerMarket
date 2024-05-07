@@ -75,6 +75,7 @@ export const scroll = styled.div`
 export const MainContainer = styled.div`
   flex-grow: 3;
   margin: 8rem 0rem;
+  /* background-color: red; */
 `;
 
 export const TextDiv = styled.div`
@@ -83,14 +84,11 @@ export const TextDiv = styled.div`
   flex-shrink: 0;
   border-radius: 10px;
   background: rgba(217, 217, 217, 0.15);
-
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
   margin-bottom: 0rem;
-
-  /* position 속성 추가 (그래야 위치 조정이 가능!)*/
   position: relative;
   left: 10px;
 `;
@@ -99,9 +97,7 @@ export const KorText = styled.h3`
   width: 397px;
   height: 121px;
   flex-shrink: 0;
-
   color: #000;
-  font-family: Inter;
   font-size: 13px;
   font-style: normal;
   font-weight: 700;
@@ -109,19 +105,15 @@ export const KorText = styled.h3`
 `;
 
 export const MainText = styled.div`
-  /* DayText의 위치 조정 */
   position: absolute;
   top: 21px;
   right: 104px;
   bottom: 61px;
   left: 111px;
-
   width: 182px;
   height: 19px;
   flex-shrink: 0;
-
   color: #000;
-  font-family: Inter;
   font-size: 13px;
   font-style: normal;
   font-weight: 700;
@@ -130,47 +122,36 @@ export const MainText = styled.div`
 
 export const DayText = styled.div`
   color: #000;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
-  /* position 속성 추가 */
   position: absolute;
   top: 20px;
   right: 2px;
   bottom: 33px;
   left: 1px;
-
-  /* box-sizing 설정 */
   box-sizing: border-box;
 `;
 
 export const PriceText = styled.div`
   color: #000;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
-  /* position 속성 추가 */
   position: absolute;
   top: 40px;
   right: 2px;
   bottom: 33px;
   left: 1px;
-
-  /* box-sizing 설정 */
   box-sizing: border-box;
 `;
 
 export const HeartIcon = styled.img`
-  width: 16px; // 원하는 크기로 조정
-  height: 16px; // 원하는 크기로 조정
-  margin-right: 10px; // 이미지와 텍스트 사이의 간격 조정
-
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
   position: absolute;
   top: 43px;
   right: 20px;
@@ -180,28 +161,22 @@ export const HeartIcon = styled.img`
 
 export const HeartText = styled.div`
   color: #000;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
-  /* position 속성 추가 */
   position: absolute;
   top: 45px;
   right: 20px;
   bottom: 33px;
   left: 270px;
-
-  /* box-sizing 설정 */
   box-sizing: border-box;
 `;
 
 export const ChatIcon = styled.img`
-  width: 16px; // 원하는 크기로 조정
-  height: 16px; // 원하는 크기로 조정
-  margin-right: 10px; // 이미지와 텍스트 사이의 간격 조정
-
+  width: 16px;
+  height: 16px;
+  margin-right: 10px;
   position: absolute;
   top: 43px;
   right: 20px;
@@ -211,20 +186,15 @@ export const ChatIcon = styled.img`
 
 export const ChatText = styled.div`
   color: #000;
-  font-family: Inter;
   font-size: 10px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-
-  /* position 속성 추가 */
   position: absolute;
   top: 45px;
   right: 20px;
   bottom: 33px;
   left: 320px;
-
-  /* box-sizing 설정 */
   box-sizing: border-box;
 `;
 
@@ -234,7 +204,6 @@ export const TextLine = styled.div`
   height: 90px;
   flex-shrink: 0;
   margin-left: 20px;
-
   border-radius: 10px;
   background: url(https://s3-alpha-sig.figma.com/img/d7f5/8241/fd15854682d7a220d74224e68809debe?Expires=1696204800&Signature=hyMaKQOmxwzuRQUK9pQ7fXcDwyMYoB4mRNka7PT57G3-gpxWrBiJApQXDwVSrC8rk~JGJr1gIUz17cJdlV-0gJr56rwOMUYyT4AQoquqFUcu9UdDFPKg-ggjAPEPbsO5llETacaY3QiZxIgGjToKWypVT8902L0whm0NNY6ekFz6TF4dSR3VHPaDTJPIEArk7dDFmkv2wB0d0lfpm9ybJTKYT~gl~NOmz6ZRRd8qDZf04FjXglGK0WA-w78LjcyH1l-duLGcnZbALhEBMEWzYr1JUYqtWBW3xBI0HlVwaBVh~L5---Fxypda0j4PV41R5Rw27ytk36ITKbAe~KEQ5w__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4),
     lightgray 50% / cover no-repeat;
@@ -256,12 +225,10 @@ export const Style = styled(Link)`
   text-decoration: none;
   color: black;
   flex-direction: column;
-
-  align-items: center; // 홈 글자와 로고 이미지를 세로로 중앙 정렬
+  align-items: center;
 `;
 
 export const Button = styled.button`
-  flex-grow: 10;
   z-index: 1;
   display: flex;
   border: none;
