@@ -4,13 +4,11 @@ import ProductForm from '@/components/ProductForm/ProductForm';
 import Loading from '@/components/Loading';
 import * as S from './styles';
 import logo from '../../assets/logo.svg';
-import plusImage from '../../assets/plus.png';
 import useInfiniteScroll from '@/hooks/useInfiniteScroll';
 import { Link } from 'react-router-dom';
 import useFetchProductList from '@/hooks/useFetchProductList';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { IoSearchOutline } from 'react-icons/io5';
-import AddButton from '@/components/AddButton';
 import { FaCirclePlus } from 'react-icons/fa6';
 
 const index: React.FC = () => {
@@ -25,7 +23,6 @@ const index: React.FC = () => {
       <S.NavContainer className="Nav">
         <S.Nav>
           <img id="main_logo" alt="To Main" loading="lazy" src={logo} />
-          <AddButton />
           <S.NavLink>
             <S.ClickArea>
               <Link to="/category">
