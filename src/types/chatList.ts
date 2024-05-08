@@ -5,7 +5,7 @@ export interface ChatListProps {
 export interface ResChatMessage {
   createdAt: string;
   chatPartnerName: string;
-  currentChatAt?: string;
+  currentChatAt: string;
   id: number;
   productId: number;
   productLocation: string;

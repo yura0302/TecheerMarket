@@ -18,7 +18,6 @@ export default function ChatForm({ items }: ChatListProps) {
         params: { chatRoomId: chatRoomId },
       });
       const { productInfo, chatInfoList } = response.data;
-
       navigate(`/chat/${chatRoomId}`, {
         state: { chatRoomId, productInfo, chatInfoList },
       });
@@ -37,7 +36,7 @@ export default function ChatForm({ items }: ChatListProps) {
           <S.Texts>
             <S.TopText>
               <S.NameText>{item.chatPartnerName}</S.NameText>
-              <S.DayText>{formatDateToNow(item.createdAt)}</S.DayText>
+              <S.DayText>{formatDateToNow(item?.currentChatAt)}</S.DayText>
             </S.TopText>
             <S.Chat>{item.message}</S.Chat>
           </S.Texts>
