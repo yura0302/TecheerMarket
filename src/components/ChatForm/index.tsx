@@ -8,8 +8,7 @@ import { ChatListProps, ResChatMessage } from '@/types/chatList';
 
 export default function ChatForm({ items }: ChatListProps) {
   const navigate = useNavigate();
-  const [chatList, setChatList] = useState<ResChatMessage[]>([]);
-
+  // const [chatList, setChatList] = useState<ResChatMessage[]>([]);
   const handleChat = async (productId: number, chatRoomId: number) => {
     try {
       const response = await restFetcher({
@@ -25,7 +24,6 @@ export default function ChatForm({ items }: ChatListProps) {
       console.log(err);
     }
   };
-  console.log(items);
   return (
     <S.Container>
       {items.map((item) => (

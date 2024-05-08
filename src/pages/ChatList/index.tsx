@@ -20,13 +20,15 @@ export default function ChatList() {
   return (
     <>
       <TopNavBar page="채팅 목록" />
-      {isLoading ? (
-        <Loading />
-      ) : data && data?.pages.flatMap((page) => page.data).length > 0 ? (
-        <ChatForm items={data?.pages.flatMap((page) => page.data)} />
-      ) : (
-        <S.EmptyList>채팅 목록이 없습니다.</S.EmptyList>
-      )}
+      <S.ProductContainer>
+        {isLoading ? (
+          <Loading />
+        ) : data && data?.pages.flatMap((page) => page.data).length > 0 ? (
+          <ChatForm items={data?.pages.flatMap((page) => page.data)} />
+        ) : (
+          <S.EmptyList>채팅 목록이 없습니다.</S.EmptyList>
+        )}
+      </S.ProductContainer>
     </>
   );
 }
