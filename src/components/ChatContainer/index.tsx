@@ -47,7 +47,7 @@ const ChatContainer = ({ chatInfoList, setChatInfoList }: IChatContainer) => {
   }
   return (
     <S.Container>
-      {chatInfoList.map((message, index) => {
+      {chatInfoList?.map((message, index) => {
         const isMyMessage = message.senderId === newUserId;
         const showDate = isNewDay(index, message);
 

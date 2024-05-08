@@ -8,6 +8,7 @@ const ChattingPage = () => {
 
   const [chatList, setChatList] = useState(chatInfoList);
 
+
   return <Chat chatRoomId={chatRoomId} productInfo={productInfo} chatInfoList={chatList} />;
 };
 

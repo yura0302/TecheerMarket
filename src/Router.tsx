@@ -18,7 +18,7 @@ const ChatList = lazy(() => import('@/pages/ChatList'));
 const ItemDetail = lazy(() => import('@/pages/ItemDetail'));
 const ChattingPage = lazy(() => import('@/pages/ChattingPage'));
 const ItemUpdate = lazy(() => import('@/pages/ItemUpadate'));
-
+const newChat = lazy(() => import('@/components/Chat'));
 export const routes = [
   { path: '/', element: <Main /> },
   { path: '/login', element: <Login /> },
