@@ -29,7 +29,7 @@ export const useTokenRefreshTimer = () => {
 
   const refreshTokens = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/user/authorize`, {
+      const response = await axios.get(`${BASE_URL}/user/refresh`, {
         headers: { 'Refresh-Token': `${localStorage.getItem('refresh-token')}` },
       });
       const newAuthTokens = response.headers['access-token'];
