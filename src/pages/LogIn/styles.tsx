@@ -66,12 +66,12 @@ export const FindAccount = styled.button`
 export const Buttons = styled.div`
   display: flex;
   flex-direction: column;
+  padding-top: 6rem;
 `;
 export const LogInButton = styled.button`
   width: 36rem;
   height: 5.5rem;
   border-radius: 10px;
-  // background: #000;
   background-color: ${(props) => (props.disabled ? '#ccc' : '#000')};
   color: white;
   border: none;
