@@ -20,7 +20,7 @@ export const EmailModal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const label = canvas.getByText('변경할 이메일');
+    const label = canvas.getByText('이메일 변경');
     await expect(label).toBeInTheDocument();
 
     const input = canvas.getAllByRole('textbox')[0];
@@ -40,8 +40,11 @@ export const PasswordModal: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
-    const label = canvas.getByText('변경할 비밀번호');
+    const label = canvas.getByText('비밀번호 변경');
     await expect(label).toBeInTheDocument();
+
+    const oldPassword = canvas.getByTestId('oldPassword');
+    await userEvent.type(oldPassword, 'test1234', { delay: 200 });
 
     const input = canvas.getByTestId('password');
     await userEvent.type(input, 'test1234', { delay: 200 });
