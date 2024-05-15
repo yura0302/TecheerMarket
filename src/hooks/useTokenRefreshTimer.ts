@@ -35,6 +35,9 @@ export const useTokenRefreshTimer = () => {
       const newAuthTokens = response.headers['access-token'];
       localStorage.setItem('access-token', newAuthTokens);
 
+      const newRefreshToken = response.headers['refresh-token'];
+      localStorage.setItem('refresh-token', newRefreshToken);
+
       // 새로운 만료 시간 저장
       let expirationTime = new Date(new Date().getTime() + JWT_EXPIRY_TIME).toISOString();
       localStorage.setItem('expirationTime', expirationTime);
