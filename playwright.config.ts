@@ -19,6 +19,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // Storybook URL
+    // https://6641c56731dd79e137b0a49d-opxpqwizpb.chromatic.com
     baseURL: 'http://localhost:6006',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
