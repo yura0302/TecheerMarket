@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Chat from '@/components/Chat';
 
 const ChattingPage = () => {
-  const location = useLocation();
-  const { productInfo, chatRoomId, chatInfoList } = location.state;
+  const { chatRoomId } = useParams();
 
-  const [chatList, setChatList] = useState(chatInfoList);
-
-
-  return <Chat chatRoomId={chatRoomId} productInfo={productInfo} chatInfoList={chatList} />;
+  return <Chat chatId={chatRoomId} />;
 };
 
 export default ChattingPage;

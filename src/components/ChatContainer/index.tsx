@@ -8,11 +8,11 @@ import { restFetcher } from '@/queryClient';
 import { ChatInfoData } from '../Chat';
 
 interface IChatContainer {
-  chatInfoList: ChatInfoData[];
-  setChatInfoList: React.Dispatch<React.SetStateAction<ChatInfoData[]>>;
+  chatList: ChatInfoData[];
+  setChatList: React.Dispatch<React.SetStateAction<ChatInfoData[]>>;
 }
 const BASE_URL = 'http://techeermarket.ap-northeast-2.elasticbeanstalk.com/api';
-const ChatContainer = ({ chatInfoList, setChatInfoList }: IChatContainer) => {
+const ChatContainer = ({ chatList, setChatList }: IChatContainer) => {
   const [IsUserId, setIsUserId] = useState(null);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -32,11 +32,15 @@ const ChatContainer = ({ chatInfoList, setChatInfoList }: IChatContainer) => {
     fetchUserId();
   }, []);
 
+  useEffect(() => {
+    
+  }, [chatList]);
+
   const formatDate = (date: string) => moment(date).format('YYYY년 MM월 DD일');
 
   const isNewDay = (index: number, message: ChatInfoData) => {
     if (index === 0) return true;
-    const previousDate = moment(chatInfoList[index - 1].createdAt).format('YYMMDD');
+    const previousDate = moment(chatList[index - 1].createdAt).format('YYMMDD');
     const currentDate = moment(message.createdAt).format('YYMMDD');
     return previousDate !== currentDate;
   };
@@ -47,7 +51,7 @@ const ChatContainer = ({ chatInfoList, setChatInfoList }: IChatContainer) => {
   }
   return (
     <S.Container>
-      {chatInfoList?.map((message, index) => {
+      {chatList?.map((message, index) => {
         const isMyMessage = message.senderId === newUserId;
         const showDate = isNewDay(index, message);
 

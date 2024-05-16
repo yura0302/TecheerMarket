@@ -24,6 +24,7 @@ export default function ChatForm({ items }: ChatListProps) {
       console.log(err);
     }
   };
+  console.log(items);
   return (
     <S.Container>
       {items.map((item) => (

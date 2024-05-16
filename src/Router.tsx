@@ -16,9 +16,8 @@ const CategoryList = lazy(() => import('@/components/CategoryList'));
 const SellerPage = lazy(() => import('@/pages/SellerPage'));
 const ChatList = lazy(() => import('@/pages/ChatList'));
 const ItemDetail = lazy(() => import('@/pages/ItemDetail'));
-const ChattingPage = lazy(() => import('@/pages/ChattingPage'));
 const ItemUpdate = lazy(() => import('@/pages/ItemUpadate'));
-const newChat = lazy(() => import('@/components/Chat'));
+const ChattingPage = lazy(() => import('@/pages/ChattingPage'));
 export const routes = [
   { path: '/', element: <Main /> },
   { path: '/login', element: <Login /> },

@@ -12,6 +12,25 @@ export const Div = styled.div`
   display: flex;
   flex-direction: row;
 `;
+
+export const MenuBar = styled.span`
+  padding-left: 3px;
+  color: #7e7e7e;
+  font-size: 10px;
+  font-weight: 400;
+`;
+export const Image = styled.svg`
+  width: 2rem;
+  height: 2rem;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: contain;
+  transition: transform 0.3s ease-out;
+  cursor: pointer;
+  &:active {
+    transform: scale(1.2);
+  }
+`;
 export const ProductImage = styled.img`
   width: 8rem;
   height: 8rem;
