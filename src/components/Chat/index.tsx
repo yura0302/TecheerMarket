@@ -3,19 +3,15 @@ import * as Stomp from '@stomp/stompjs';
 import * as S from './styles';
 import TopNavBar from '../TopNavBar';
 import NavBar from '../BottomNavBar';
-import moment from 'moment';
 import 'moment/locale/ko';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 import ChatContainer from '../ChatContainer';
 import ChatBtn from '@/assets/ChatBtn.svg';
-import ProductForm from '../ProductForm/ProductForm';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { restFetcher } from '@/queryClient';
 
 interface ChatProps {
-  chatRoomId: number;
-  productInfo: ChatData;
-  chatInfoList: ChatInfoData[];
-  // senderId: number;
+  chatId: string | undefined;
 }
 export interface ChatInfoData {
   senderId: number;
@@ -34,26 +30,34 @@ export interface ChatData {
   createdAt: string;
   message: string;
 }
-export interface ChatResponse {
-  content: ChatInfoData[];
-  hasNext: boolean;
-  hasPrev: boolean;
-  next: number;
-  prev: number;
-}
 
-const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
+const Chat: React.FC<ChatProps> = ({ chatId }) => {
+  const { chatRoomId } = useParams();
   const [chatList, setChatList] = useState<ChatInfoData[]>([]);
+  const [productInfo, setProductInfo] = useState<ChatData | null>(null);
   const [chatText, setChatText] = useState('');
   const client = useRef<Stomp.Client>();
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  const fetchInitialData = async () => {
+    try {
+      const res = await restFetcher({
+        method: 'GET',
+        path: `/chat/${chatRoomId}`,
+      });
+      setChatList(res.data.chatInfoList);
+      setProductInfo(res.data.productInfo);
+    } catch (err) {
+      console.error('Failed to fetch chat data:', err);
+    }
+  };
+
   const subscribe = useCallback(() => {
     client.current?.subscribe(`/sub/chat/room/${chatRoomId}`, (body) => {
       const json_body = JSON.parse(body.body);
-      setChatList((chat_list: ChatInfoData[]) => [...chat_list, json_body]);
+      setChatList((prevChatList) => [...prevChatList, json_body]);
     });
-    console.error();
   }, [chatRoomId]);
 
   const connect = useCallback(() => {
@@ -72,6 +76,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
   const disconnect = () => {
     client.current?.deactivate();
   };
+
   const publish = (chat: string) => {
     if (!client.current?.connected) {
       return;
@@ -85,7 +90,7 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
         chatRoomId,
         senderId: localStorage.getItem('userId'),
         message: chat,
-        createdAt: productInfo.createdAt,
+        createdAt: new Date().toISOString(), // productInfo.createdAt 대신 현재 시간을 사용
       }),
     });
     setChatText('');
@@ -113,14 +118,17 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
       behavior: 'smooth',
     });
   };
-  useEffect(() => {
-    scrollToBottom();
-  }, [chatInfoList]);
 
   useEffect(() => {
+    fetchInitialData();
     connect();
     return () => disconnect();
-  }, [connect]);
+  }, [chatRoomId, connect]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chatList]);
+
   return (
     <>
       {productInfo && (
@@ -133,17 +141,14 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
                 <S.ProductName>{productInfo.name}</S.ProductName>
                 <S.RowDiv>
                   <S.Writer>{productInfo.title}</S.Writer>
-                  <S.DayText>{formatDateToNow(productInfo.createdAt as string)}</S.DayText>
+                  <S.DayText>{formatDateToNow(productInfo.createdAt)}</S.DayText>
                 </S.RowDiv>
                 <S.Price>{productInfo.price}원</S.Price>
               </S.Texts>
             </S.Div>
           </S.Container>
-          <ChatContainer
-            chatInfoList={chatInfoList}
-            setChatInfoList={setChatList}
-            // senderId={senderId}
-          />
+
+          <ChatContainer chatList={chatList} setChatList={setChatList} />
           <S.BottomContainer>
             <S.ChatDiv>
               <S.Input
@@ -162,4 +167,5 @@ const Chat = ({ chatRoomId, productInfo, chatInfoList }: ChatProps) => {
     </>
   );
 };
+
 export default Chat;

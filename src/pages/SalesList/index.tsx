@@ -49,16 +49,6 @@ const SalesList: React.FC = () => {
   return (
     <>
       <TopNavBar page="나의 판매 내역" />
-      <S.BtnDiv>
-        <S.WriteBtn
-          onClick={() => {
-            navigate('/write');
-          }}
-        >
-          글쓰기
-        </S.WriteBtn>
-      </S.BtnDiv>
-
       <S.TabWrapper>
         <S.Tabs>
           <S.Tab isActive={activeIndex === 0} onClick={() => handleTabClick(0)}>
