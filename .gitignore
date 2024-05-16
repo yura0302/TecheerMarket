@@ -36,3 +36,9 @@ node_modules/vite/bin/vite.js
 
 # snapshots file
 __snapshots__
+
+# playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
