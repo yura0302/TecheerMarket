@@ -1,29 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
-// import imageCompression from 'browser-image-compression';
 import TopNavBar from '@/components/TopNavBar';
 import * as S from './styles';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import NavBar from '@/components/BottomNavBar';
 import uploadimage from '../../assets/uploadimg.svg';
 import categoryBar from '../../assets/categoryBar.svg';
 import searchBtn from '../../assets/Search.svg';
 import KakaoMap from '@/components/KakaoMap';
-import { debounce, set } from 'lodash';
 import { restFetcher } from '@/queryClient';
 
 const WritePost = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
-
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [categoryName, setCategoryName] = useState('');
-  const [price, setPrice] = useState(0); // 실제 서버에 전달될 price
+  const [price, setPrice] = useState(0);
   const [productImages, setProductImages] = useState<string[]>([]);
   const [location, setLocation] = useState('');
   const [representativeImage, setRepresentativeImage] = useState<string | null>(null); //대표이미지 선택
 
-  console.log('o=ooo', productImages);
+  console.log('productImages', productImages);
 
   const getProduct = async () => {
     try {
@@ -42,7 +38,7 @@ const WritePost = () => {
       setRepresentativeImage(data.representativeImage);
       setLocation(data.location);
     } catch (error) {
-      console.error('Error fetching product details:', error);
+      console.error('에러', error);
     }
   };
 
@@ -55,10 +51,11 @@ const WritePost = () => {
 
     if (files && files.length > 0) {
       const file = files[0];
-      if (productImages.length >= 4) {
-        alert('사진은 최대 4장까지 업로드 가능합니다.');
+      if (productImages.length >= 10) {
+        alert('사진은 최대 10장까지 업로드 가능합니다.');
         return;
       }
+
       // 선택된 이미지가 대표 이미지면 해제
       if (representativeImage === URL.createObjectURL(file)) {
         setRepresentativeImage(null);
@@ -87,14 +84,12 @@ const WritePost = () => {
   };
 
   const handleSubmit = async () => {
-    // 유효성 검사
     if (!title || !categoryName || price === 0 || !content || !location) {
       alert('모든 항목을 입력해주세요.');
       return;
     }
 
     const formData = new FormData();
-
     formData.append('title', title);
     formData.append('content', content);
     formData.append('categoryName', categoryName);
@@ -122,25 +117,35 @@ const WritePost = () => {
       });
       alert('게시물이 수정되었습니다.');
       navigate(`/item/${productId}`);
-
-      window.location.href = '/'; // 메인 페이지로 리다이렉트
+      window.location.href = '/';
     } catch (error) {
       alert('게시물 수정에 실패했습니다.');
       console.log(error);
     }
   };
 
-  // 금액 입력 함수 수정
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
-    setPrice(parseInt(value)); // 실제로 서버에 전달될 값
+    setPrice(parseInt(value));
+  };
+
+  const handleDeleteImage = (imageFile: string) => {
+    console.log('Current productImages before deletion:', productImages);
+
+    const newImages = productImages.filter((file) => file !== imageFile);
+    console.log('Updated productImages after deletion:', newImages);
+
+    setProductImages(newImages);
+
+    if (representativeImage === imageFile) {
+      setRepresentativeImage(newImages.length > 0 ? newImages[0] : null);
+    }
   };
 
   return (
     <S.Writepost>
       <div className="navContainer">
         <TopNavBar page={`게시글 수정`} />
-
         <S.Nav>
           <Link to="/category">
             <img id="category" alt="To category" src={categoryBar}></img>
@@ -150,11 +155,9 @@ const WritePost = () => {
           </Link>
         </S.Nav>
       </div>
-
       <S.Wrap>
         <S.Img>
           <S.ImagesContainer>
-            {/* 가로 스크롤을 위한 컨테이너 */}
             <input
               id="file-upload"
               type="file"
@@ -162,14 +165,12 @@ const WritePost = () => {
               onChange={handleFileInputChange}
               style={{ display: 'none' }}
             />
-
             <label htmlFor="file-upload" className="upload-label" style={{ position: 'relative' }}>
               <img
                 src={uploadimage}
                 alt="Upload Image"
                 style={{ cursor: 'pointer', width: '130px', height: '130px' }}
               />
-
               <span
                 className="image-count"
                 style={{
@@ -178,19 +179,13 @@ const WritePost = () => {
                 }}
               >
                 {productImages.length}
-                <span style={{ fontSize: '16px', color: 'black' }}>/4</span>
+                <span style={{ fontSize: '16px', color: 'black' }}>/10</span>
               </span>
             </label>
 
             {productImages.map((imageFile, index) => (
               <div key={index} style={{ position: 'relative', width: '130px', height: '130px' }}>
-                <S.DeleteButton
-                  onClick={() =>
-                    setProductImages((prevState) => prevState.filter((file) => file !== imageFile))
-                  }
-                >
-                  X
-                </S.DeleteButton>
+                <S.DeleteButton onClick={() => handleDeleteImage(imageFile)}>X</S.DeleteButton>
                 <S.UploadedImg
                   key={index}
                   src={imageFile}
@@ -204,14 +199,14 @@ const WritePost = () => {
                     position: 'absolute',
                     bottom: '1.5%',
                     width: '100%',
-                    height: '30%', // 이미지 아래 40% 영역 설정
-                    zIndex: 1, // 버튼이 이미지 위에 나타나도록 설정
+                    height: '30%',
+                    zIndex: 1,
                     backgroundColor: representativeImage === imageFile ? 'black' : 'transparent', // 대표 이미지가 설정된 경우 배경색 변경
                     color: representativeImage === imageFile ? 'white' : 'black', // 대표 이미지가 설정된 경우 텍스트 색상 변경
                     border: 'none',
                     borderBottomLeftRadius: representativeImage === imageFile ? '10.5px' : '0',
                     borderBottomRightRadius: representativeImage === imageFile ? '10.5px' : '0',
-                    opacity: '0.8', // 배경색에 투명도 적용 (선택사항)
+                    opacity: '0.8',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -297,12 +292,10 @@ const WritePost = () => {
             </S.Map>
           </S.Label>
         </S.Row>
-
         <S.UploadButton type="submit" onClick={handleSubmit}>
           수정 완료
         </S.UploadButton>
       </S.Wrap>
-      {/* <NavBar /> */}
     </S.Writepost>
   );
 };

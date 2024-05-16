@@ -41,11 +41,6 @@ export const Wrap = styled.div`
   align-items: center;
 `;
 
-export const Scroll = styled.div`
-  overflow-y: scroll;
-  overflow-x: hidden;
-`;
-
 // 드래그 바의 진행 상태 스타일
 export const ImagesContainer = styled.div`
   display: flex;

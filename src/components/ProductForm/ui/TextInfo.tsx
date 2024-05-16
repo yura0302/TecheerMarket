@@ -14,7 +14,9 @@ const TextInfo = () => {
           <S.InfoContent>{formatDateToNow(items.createdAt)}</S.InfoContent>
         </S.InfoDiv>
       </S.Wrapper>
-      <S.PriceDiv>{Number(items.price).toLocaleString()}원</S.PriceDiv>
+      <S.PriceDiv>
+        {items.price === 0 ? '무료나눔🧡' : Number(items.price).toLocaleString() + '원'}
+      </S.PriceDiv>
     </S.TextDiv>
   );
 };
