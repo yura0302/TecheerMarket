@@ -13,8 +13,7 @@ import { getClient, restFetcher } from '@/queryClient';
 import Loading from '@/components/Loading';
 import { formatDateToNow } from '@/utils/formatDateToNow';
 import Carousel from '@/components/Carousel';
-import { useState } from 'react';
-import { ChatData, ChatInfoData } from '@/components/Chat';
+import { useEffect, useState } from 'react';
 
 interface ItemDetailProps {
   productId: string;
@@ -40,6 +39,14 @@ const ItemDetail: React.FC = () => {
   const parsedProductId = parseInt(productId ?? '', 10);
   const queryClient = getClient();
   const navigate = useNavigate();
+
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // const storedUserId = localStorage.getItem('userId');
+    // setUserId(storedUserId);
+  }, []);
+
   const { data, isLoading } = useQuery<ItemDetailProps, AxiosError>(
     ['itemDetail', productId],
     async () => {
@@ -101,30 +108,34 @@ const ItemDetail: React.FC = () => {
       changeLikeMutation.mutate(productId);
     }
   };
-  const handleChat = async () => {
-    try {
-      const response = await restFetcher({
-        method: 'POST',
-        path: `/chat/create/${parsedProductId}`,
-        params: { chatRoomId: 0 },
-      });
-      const { chatRoomId, productInfo, chatInfoList } = response.data;
-      navigate(`/chat/${chatRoomId}`, {
-        state: { chatRoomId, productInfo, chatInfoList },
-      });
-    } catch (err) {
-      console.log(err);
-    }
+
+  const goToChat = async () => {
+    const response = await restFetcher({
+      method: 'POST',
+      path: `/chat/create/${parsedProductId}`,
+    });
+    console.log(response.data);
+    navigate(`/chat/${response.data.chatRoomId}`);
   };
-  console.log(parsedProductId);
+  //   const chatPath = `/chat/create/${parsedProductId}`;
+  //   restFetcher({
+  //     method: 'POST',
+  //     path: chatPath,
+  //   });
+  //   navigate(chatPath, {
+  //     // state: { productId },
+  //   });
+  // };
+  // console.log(parsedProductId);
 
   if (isLoading) return <Loading />;
-  // console.log(productId);
+  console.log(productId);
   return (
     <S.Container>
       <TopNavBar page="" />
       <S.Maincontainer>
         <Carousel images={data?.productImages} />
+        {/* {userId == '11' && <Carousel images={data?.productImages} />} */}
         <S.Details>
           <S.TypeWrapper>
             <S.NameAndDateWrapper
@@ -176,7 +187,7 @@ const ItemDetail: React.FC = () => {
           </S.ButtonsBox>
           <S.ChatButton
             onClick={() => {
-              handleChat();
+              goToChat();
             }}
           >
             채팅하기
