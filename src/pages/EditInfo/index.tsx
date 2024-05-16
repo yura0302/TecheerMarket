@@ -49,7 +49,7 @@ const EditInfo = () => {
   );
 
   const mutateInfoChange = useMutation(
-    (updateInfo: UserInfo) => {
+    (updateInfo: any) => {
       return restFetcher({
         method: 'PATCH',
         path: '/users/update',
@@ -69,12 +69,20 @@ const EditInfo = () => {
     },
   );
 
-  const handleInfoChange = async (type: string, newValue: string | null) => {
+  const handleInfoChange = async (
+    type: string,
+    newValue: string | null,
+    oldValue?: string | null,
+  ) => {
     let updateInfo = {};
-    if (type === 'email') updateInfo = { email: newValue };
-    if (type === 'password') updateInfo = { password: newValue };
+    if (type === 'email') {
+      updateInfo = { email: newValue };
+    }
+    if (type === 'password') {
+      updateInfo = { oldPassword: oldValue, newPassword: newValue };
+    }
 
-    await mutateInfoChange.mutateAsync(updateInfo as UserInfo);
+    await mutateInfoChange.mutateAsync(updateInfo as any);
   };
 
   const mutateLogout = useMutation(() => {

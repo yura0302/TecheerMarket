@@ -127,13 +127,13 @@ const Login = () => {
         )}
       </S.Form>
 
-      <S.Etc>
+      {/* <S.Etc>
         <S.Check>
           <S.Checkbox type="checkbox" />
           <S.CheckLogin>로그인 상태 유지</S.CheckLogin>
         </S.Check>
         <S.FindAccount>아이디/비밀번호 찾기</S.FindAccount>
-      </S.Etc>
+      </S.Etc> */}
 
       <S.Buttons>
         <S.LogInButton type="submit" onClick={handleLogin} disabled={!(isEmail && isPassword)}>

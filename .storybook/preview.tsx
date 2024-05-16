@@ -1,12 +1,17 @@
 import type { Preview } from '@storybook/react';
 import React from 'react';
+import { MemoryRouter } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { getClient } from './../src/queryClient';
 import '../src/GlobalStyle.tsx';
 
 export const decorators = [
   (Story) => (
-    <body>
-      <Story />
-    </body>
+    <MemoryRouter>
+      <QueryClientProvider client={getClient()}>
+        <Story />
+      </QueryClientProvider>
+    </MemoryRouter>
   ),
 ];
 

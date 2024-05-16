@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 const JWT_EXPIRY_TIME = 1000 * 60 * 60 * 3 - 1000 * 60 * 10; // 3시간 - 10분
 const BASE_URL = import.meta.env.VITE_APP_URL;
 
-// 액세스 토큰 만료 시간이 지나면 리프레쉬 토큰으로 재발급
 export const useTokenRefreshTimer = () => {
   const location = useLocation();
 
@@ -24,18 +23,20 @@ export const useTokenRefreshTimer = () => {
 
     const remainingTime = calculateRemainingTime(time);
     const timer = setTimeout(() => refreshTokens(), remainingTime);
-    return () => clearTimeout(timer); // 컴포넌트 언마운트 시 타이머 정리
+    return () => clearTimeout(timer);
   });
 
   const refreshTokens = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/user/authorize`, {
+      const response = await axios.get(`${BASE_URL}/user/refresh`, {
         headers: { 'Refresh-Token': `${localStorage.getItem('refresh-token')}` },
       });
       const newAuthTokens = response.headers['access-token'];
       localStorage.setItem('access-token', newAuthTokens);
 
-      // 새로운 만료 시간 저장
+      const newRefreshToken = response.headers['refresh-token'];
+      localStorage.setItem('refresh-token', newRefreshToken);
+
       let expirationTime = new Date(new Date().getTime() + JWT_EXPIRY_TIME).toISOString();
       localStorage.setItem('expirationTime', expirationTime);
     } catch (error) {
@@ -55,7 +56,6 @@ export const clearLocalStorage = () => {
   localStorage.removeItem('userId');
 };
 
-// 남은 시간 유효 시간 계산
 export const calculateRemainingTime = (expirationTime: string): number => {
   const currentTime = new Date().getTime();
   const adjExpirationTime = new Date(expirationTime).getTime();

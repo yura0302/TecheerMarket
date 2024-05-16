@@ -6,6 +6,7 @@ interface FetchProductListProps {
   queryKey: string;
 }
 const PAGE_SiZE = 10;
+
 const useFetchProductList = ({ path, queryKey }: FetchProductListProps) => {
   const fetchWishList = async ({ pageParam = 1 }) => {
     try {
@@ -36,6 +37,7 @@ const useFetchProductList = ({ path, queryKey }: FetchProductListProps) => {
       return { data: [], nextPage: undefined };
     }
   };
+
   const { data, isLoading, hasNextPage, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
     [`${queryKey}`],
     ({ pageParam = 1 }) => fetchWishList({ pageParam }),
@@ -45,11 +47,13 @@ const useFetchProductList = ({ path, queryKey }: FetchProductListProps) => {
       },
     },
   );
+
   const loadMore = async () => {
     if (hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
     }
   };
+
   return { data, isLoading, hasNextPage, fetchNextPage: loadMore };
 };
 export default useFetchProductList;

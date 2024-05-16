@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { userEvent, within } from '@storybook/testing-library';
-import TopNavBar from './index';
+import TopNavBar from '@/components/TopNavBar';
 import { expect } from '@storybook/test';
 
 const meta: Meta<typeof TopNavBar> = {
@@ -15,17 +15,14 @@ type Story = StoryObj<typeof TopNavBar>;
 export const Basic: Story = {
   args: {
     page: '페이지',
-    onNavBack: () => alert('뒤로가기'),
   },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
 
     const backButton = canvas.getByTestId('back-button');
 
-    // 클릭 이벤트 테스트
-    await userEvent.click(backButton);
+    await userEvent.click(backButton, { delay: 1000 });
 
-    // 화면에 버튼이 보이는지 테스트
     await expect(backButton).toBeInTheDocument();
   },
 };

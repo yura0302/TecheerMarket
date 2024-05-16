@@ -18,7 +18,7 @@ export const ModalContainer = styled.div`
   transform: translate(-50%, -50%);
 
   width: 32rem;
-  height: 16rem;
+  height: 18rem;
 
   display: flex;
   align-items: center;
@@ -57,6 +57,11 @@ export const Label = styled.span`
   font-size: 1.2rem;
   color: #000000;
   font-weight: 700;
+`;
+
+export const InputContainer = styled(Container)`
+  padding-bottom: 0;
+  gap: 0.5rem;
 `;
 
 export const InputBox = styled.input`
