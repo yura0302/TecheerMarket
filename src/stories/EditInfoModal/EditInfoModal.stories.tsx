@@ -23,6 +23,10 @@ export const EmailModal: Story = {
     const label = canvas.getByText('이메일 변경');
     await expect(label).toBeInTheDocument();
 
+    const oldPassword = canvas.getByTestId('oldPassword');
+    await userEvent.type(oldPassword, 'test1234', { delay: 200 });
+    await expect(oldPassword).toHaveValue('test1234');
+
     const input = canvas.getAllByRole('textbox')[0];
     await userEvent.type(input, 'test@test.com', { delay: 200 });
     await expect(input).toHaveValue('test@test.com');
@@ -45,6 +49,7 @@ export const PasswordModal: Story = {
 
     const oldPassword = canvas.getByTestId('oldPassword');
     await userEvent.type(oldPassword, 'test1234', { delay: 200 });
+    await expect(oldPassword).toHaveValue('test1234');
 
     const input = canvas.getByTestId('password');
     await userEvent.type(input, 'test1234', { delay: 200 });

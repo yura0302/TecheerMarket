@@ -46,10 +46,7 @@ const useEditInfo = ({ type }: EditInfoProps) => {
   };
 
   const isDisabled = () => {
-    if (type === 'password') {
-      return !(isCorrect && oldValue.length > 0 && inputValue.length > 0);
-    }
-    return !isCorrect;
+    return !(isCorrect && oldValue.length > 0 && inputValue.length > 0);
   };
 
   return {

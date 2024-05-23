@@ -13,6 +13,7 @@ interface Props {
 const EditInfoModal = ({ type, onRequestClose, updateInfo }: Props) => {
   const {
     oldValue,
+    setOldValue,
     inputValue,
     setInputValue,
     typeErrorMessage,
@@ -26,6 +27,7 @@ const EditInfoModal = ({ type, onRequestClose, updateInfo }: Props) => {
   // 창을 닫을 때 초기화
   useEffect(() => {
     setInputValue('');
+    setOldValue('');
     setTypeErrorMessage('');
     setIsCorrect(false);
   }, [onRequestClose]);
@@ -47,14 +49,24 @@ const EditInfoModal = ({ type, onRequestClose, updateInfo }: Props) => {
         <S.Container>
           <S.Label>{type === 'email' ? '이메일' : '비밀번호'} 변경</S.Label>
           {type === 'email' && (
-            <S.InputBox
-              aria-label="email"
-              name="email"
-              placeholder="새 이메일 입력"
-              type="text"
-              value={inputValue}
-              onChange={handleChangeInput}
-            />
+            <S.InputContainer>
+              <S.InputBox
+                data-testid="oldPassword"
+                name="password"
+                placeholder="현재 비밀번호 입력"
+                type="password"
+                value={oldValue}
+                onChange={handleChangeOldValue}
+              />
+              <S.InputBox
+                aria-label="email"
+                name="email"
+                placeholder="새 이메일 입력"
+                type="text"
+                value={inputValue}
+                onChange={handleChangeInput}
+              />
+            </S.InputContainer>
           )}
           {type === 'password' && (
             <S.InputContainer>
