@@ -15,6 +15,7 @@ const WritePost = () => {
   const [content, setContent] = useState('');
   const [categoryName, setCategoryName] = useState('');
   const [price, setPrice] = useState(0);
+  const [isFree, setIsFree] = useState(false);
   const [productImages, setProductImages] = useState<string[]>([]);
   const [location, setLocation] = useState('');
   const [representativeImage, setRepresentativeImage] = useState<string | null>(null); //대표이미지 선택
@@ -84,8 +85,13 @@ const WritePost = () => {
   };
 
   const handleSubmit = async () => {
-    if (!title || !categoryName || price === 0 || !content || !location) {
+    if (!title || !categoryName || !content || !location) {
       alert('모든 항목을 입력해주세요.');
+      return;
+    }
+
+    if (!isFree && (!price || price === 0)) {
+      alert('판매 가격을 입력해주세요.');
       return;
     }
 
@@ -94,11 +100,9 @@ const WritePost = () => {
     formData.append('content', content);
     formData.append('categoryName', categoryName);
     formData.append('price', price.toString());
+    formData.append('isFree', isFree.toString());
     const blobPromises = productImages.map((imageFile) => urlToBlob(imageFile));
-    console.log('sssss', blobPromises);
     const blobs = await Promise.all(blobPromises);
-    console.log('aaaa', blobs);
-
     for (let i = 0; i < blobs.length; i++) {
       formData.append('productImages', blobs[i]);
     }
@@ -127,6 +131,13 @@ const WritePost = () => {
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value.replace(/[^0-9]/g, ''); // 숫자만 허용
     setPrice(parseInt(value));
+  };
+  const toggleFree = () => {
+    setIsFree(true);
+    setPrice(0); // 가격을 비웁니다.
+  };
+  const toggleSale = () => {
+    setIsFree(false);
   };
 
   const handleDeleteImage = (imageFile: string) => {
@@ -253,16 +264,30 @@ const WritePost = () => {
               </S.Select>
             </S.Label>
           </S.Row>
-
           <S.Row>
-            <S.Label>
-              가격
-              <S.Input
-                name="price"
-                value={`${price.toLocaleString()}`}
-                onChange={handlePriceChange}
-              />
-            </S.Label>
+            <S.Label>가격</S.Label>
+            <div
+              style={{
+                width: '100%',
+                margin: '0.2rem 0 0.5rem 3rem',
+                display: 'flex',
+                justifyContent: 'flex-start',
+                alignItems: 'flex-start',
+              }}
+            >
+              <S.Button onClick={toggleSale} disabled={!isFree}>
+                판매하기
+              </S.Button>
+              <S.Button onClick={toggleFree} disabled={isFree}>
+                무료나눔
+              </S.Button>
+            </div>
+            <S.Input
+              name="price"
+              value={`${price.toLocaleString()}`}
+              onChange={handlePriceChange}
+              disabled={isFree}
+            />
           </S.Row>
         </S.Form>
         <S.Form>

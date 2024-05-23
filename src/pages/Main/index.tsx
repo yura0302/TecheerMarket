@@ -26,13 +26,13 @@ const index: React.FC = () => {
           <S.NavLink>
             <S.ClickArea>
               <Link to="/category">
-                <RxHamburgerMenu style={{ width: '25px', height: '25px' }} />
+                <RxHamburgerMenu style={{ width: '25px', height: '25px', color: '#fd8944' }} />
                 {/* <img id="category" alt="To category" src={categoryBar}></img> */}
               </Link>
             </S.ClickArea>
             <S.ClickArea>
               <Link to="/search">
-                <IoSearchOutline style={{ width: '25px', height: '25px' }} />
+                <IoSearchOutline style={{ width: '25px', height: '25px', color: '#fd8944' }} />
                 {/* <img id="search" alt="To search" src={searchBtn}></img> */}
               </Link>
             </S.ClickArea>

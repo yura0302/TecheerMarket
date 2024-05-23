@@ -28,10 +28,10 @@ interface ItemDetailProps {
   likes: number;
   myheart: boolean; // 좋아요 여부, 이름 수정 필요
   views: number;
+  chatRoom: number;
   createdAt: string;
   location: string;
   updatedAt: string;
-  // chatroomCount: number;
 }
 
 const ItemDetail: React.FC = () => {
@@ -43,8 +43,8 @@ const ItemDetail: React.FC = () => {
   const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
-    // const storedUserId = localStorage.getItem('userId');
-    // setUserId(storedUserId);
+    const storedUserId = localStorage.getItem('userId');
+    setUserId(storedUserId);
   }, []);
 
   const { data, isLoading } = useQuery<ItemDetailProps, AxiosError>(
@@ -146,8 +146,12 @@ const ItemDetail: React.FC = () => {
   };
   console.log(parsedProductId);
 
+  const goToEdit = () => {
+    navigate(`/item/update/${productId}`);
+  };
+
   if (isLoading) return <Loading />;
-  console.log(productId);
+
   return (
     <S.Container>
       <TopNavBar page="" />
@@ -177,9 +181,9 @@ const ItemDetail: React.FC = () => {
 
             <S.DetailWrapper>
               <S.DetailName>좋아요</S.DetailName>
-              <S.DetailValue>{data?.likes}</S.DetailValue>•<S.DetailName>채팅</S.DetailName>
-              {/* <S.DetailValue>{data?.chatroomCount}</S.DetailValue>•<S.DetailName>조회</S.DetailName> */}
-              <S.DetailValue>{data?.views}</S.DetailValue>
+              <S.DetailValue>{data?.likes}</S.DetailValue>•<S.DetailName>조회</S.DetailName>
+              <S.DetailValue>{data?.views}</S.DetailValue>•<S.DetailName>채팅</S.DetailName>
+              <S.DetailValue>{data?.chatRoom}</S.DetailValue>
             </S.DetailWrapper>
 
             <S.Description>
@@ -203,13 +207,12 @@ const ItemDetail: React.FC = () => {
             />
             <S.Price> {`${data?.price?.toLocaleString()}원`} </S.Price>
           </S.ButtonsBox>
-          <S.ChatButton
-            onClick={() => {
-              handleChat();
-            }}
-          >
-            채팅하기
-          </S.ChatButton>
+          {userId === String(data?.userId) ? (
+            <S.ChatButton onClick={goToEdit}>수정하기</S.ChatButton>
+          ) : (
+            <S.ChatButton onClick={()=>{handleChat()}>채팅하기</S.ChatButton>
+          )}
+       
         </S.Buttons>
       </S.Maincontainer>
 

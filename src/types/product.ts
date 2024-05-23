@@ -12,5 +12,6 @@ export type Product = {
   productState: StateType;
   likes: number;
   views: number;
+  chatRooms: number;
   // chatroomCount: number; // 채팅방 개수
 };

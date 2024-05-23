@@ -86,10 +86,11 @@ export const Form = styled.form`
 `;
 export const Row = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   width: 50rem;
 `;
+
 export const Label = styled.label`
   display: flex;
   flex-direction: column;
@@ -101,12 +102,37 @@ export const Label = styled.label`
   margin-left: 2rem;
   margin-top: 1rem;
 `;
+export const Button = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  line-height: 3rem;
+  background: #ffffff;
+  border-radius: 4rem;
+  border: 1px solid #b8b8b8;
+  cursor: pointer;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-right: 1rem;
+
+  &:hover {
+    background: #ff985d;
+    color: #ffffff;
+  }
+  &:disabled {
+    background: #ffcec4;
+    border-color: #ffcec4;
+    cursor: not-allowed;
+  }
+`;
 export const Input = styled.input`
   display: flex;
   width: 95%;
   height: 43px;
   flex-shrink: 0;
-  background: #fff;
+  color: ${(props) => (props.disabled ? '#c9c9c9' : '#000')};
+  background: ${(props) => (props.disabled ? '#e4e4e4' : '#fff')};
   border-radius: 10px;
   border: 1px solid #828385;
   font-size: 1.5rem;
