@@ -62,7 +62,7 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
 
   const connect = useCallback(() => {
     client.current = new Stomp.Client({
-      brokerURL: 'ws://techeermarket.ap-northeast-2.elasticbeanstalk.com/ws-stomp',
+      brokerURL: 'wss://eb.techeermarket.store/ws-stomp',
       connectHeaders: {
         Authorization: localStorage.getItem('token') || '',
       },
