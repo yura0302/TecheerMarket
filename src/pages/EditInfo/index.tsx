@@ -69,14 +69,10 @@ const EditInfo = () => {
     },
   );
 
-  const handleInfoChange = async (
-    type: string,
-    newValue: string | null,
-    oldValue?: string | null,
-  ) => {
+  const handleInfoChange = async (type: string, newValue: string, oldValue: string) => {
     let updateInfo = {};
     if (type === 'email') {
-      updateInfo = { email: newValue };
+      updateInfo = { oldPassword: oldValue, email: newValue };
     }
     if (type === 'password') {
       updateInfo = { oldPassword: oldValue, newPassword: newValue };
