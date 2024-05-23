@@ -25,7 +25,7 @@ const IconLayout = () => {
 
       <S.Part>
         <S.Image style={{ backgroundImage: `url(${Chat})` }} />
-        <S.Value>{items.views}</S.Value>
+        <S.Value>{items.chatRooms}</S.Value>
       </S.Part>
 
       {isSalesPage && (

@@ -21,6 +21,12 @@ const WritePost = () => {
   const [productImages, setProductImages] = useState<File[]>([]);
   const [location, setLocation] = useState('');
   const [representativeImage, setRepresentativeImage] = useState<File | null>(null);
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    setUserId(storedUserId);
+  }, []);
 
   // const [files, setFiles] = useState<File | null>(null);
   // const [fileUrl, setFileUrl] = useState('');
@@ -86,6 +92,9 @@ const WritePost = () => {
     formData.append('content', content);
     formData.append('categoryName', categoryName);
     formData.append('price', price.toString());
+    formData.append('userId', userId ?? ''); // userId 추가
+
+    console.log('userId 는????', userId); // userId 확인을 위한 로그
 
     // 사진이 있는 경우
     if (productImages.length > 0) {
@@ -125,12 +134,12 @@ const WritePost = () => {
         <S.Nav>
           <S.ClickArea>
             <Link to="/category">
-              <RxHamburgerMenu style={{ width: '25px', height: '25px' }} />
+              <RxHamburgerMenu style={{ width: '25px', height: '25px', color: '#fd8944' }} />
             </Link>
           </S.ClickArea>
           <S.ClickArea>
             <Link to="/search">
-              <IoSearchOutline style={{ width: '25px', height: '25px' }} />
+              <IoSearchOutline style={{ width: '25px', height: '25px', color: '#fd8944' }} />
             </Link>
           </S.ClickArea>
         </S.Nav>
