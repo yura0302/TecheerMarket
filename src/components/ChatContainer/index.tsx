@@ -32,9 +32,7 @@ const ChatContainer = ({ chatList, setChatList }: IChatContainer) => {
     fetchUserId();
   }, []);
 
-  useEffect(() => {
-    
-  }, [chatList]);
+  useEffect(() => {}, [chatList]);
 
   const formatDate = (date: string) => moment(date).format('YYYY년 MM월 DD일');
 
