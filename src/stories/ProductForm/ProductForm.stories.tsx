@@ -26,6 +26,7 @@ const ITEM: Product = {
   productState: 'SALE',
   likes: 1,
   views: 2,
+  chatRooms: 3,
 };
 
 export const Basic: Story = {

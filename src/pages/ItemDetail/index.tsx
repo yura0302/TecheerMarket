@@ -210,9 +210,14 @@ const ItemDetail: React.FC = () => {
           {userId === String(data?.userId) ? (
             <S.ChatButton onClick={goToEdit}>수정하기</S.ChatButton>
           ) : (
-            <S.ChatButton onClick={()=>{handleChat()}>채팅하기</S.ChatButton>
+            <S.ChatButton
+              onClick={() => {
+                handleChat();
+              }}
+            >
+              채팅하기
+            </S.ChatButton>
           )}
-       
         </S.Buttons>
       </S.Maincontainer>
 
