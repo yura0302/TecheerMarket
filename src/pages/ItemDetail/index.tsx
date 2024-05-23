@@ -109,24 +109,42 @@ const ItemDetail: React.FC = () => {
     }
   };
 
-  const goToChat = async () => {
-    const response = await restFetcher({
-      method: 'POST',
-      path: `/chat/create/${parsedProductId}`,
-    });
-    console.log(response.data);
-    navigate(`/chat/${response.data.chatRoomId}`);
-  };
-  //   const chatPath = `/chat/create/${parsedProductId}`;
-  //   restFetcher({
+  // const goToChat = async () => {
+  //   const response = await restFetcher({
   //     method: 'POST',
-  //     path: chatPath,
+  //     path: `/chat/create/${parsedProductId}`,
   //   });
-  //   navigate(chatPath, {
-  //     // state: { productId },
-  //   });
+  //   console.log(response.data);
+  //   console.log(parsedProductId);
+  //   navigate(`/chat/${response.data.chatRoomId}`);
   // };
-  // console.log(parsedProductId);
+  // //   const chatPath = `/chat/create/${parsedProductId}`;
+  // //   restFetcher({
+  // //     method: 'POST',
+  // //     path: chatPath,
+  // //   });
+  // //   navigate(chatPath, {
+  // //     // state: { productId },
+  // //   });
+  // // };
+  // // console.log(parsedProductId);
+  const handleChat = async () => {
+    try {
+      const response = await restFetcher({
+        method: 'POST',
+        path: `/chat/create/${parsedProductId}`,
+        params: { chatRoomId: 0 },
+      });
+      const { chatRoomId, productInfo, chatInfoList } = response.data;
+      navigate(`/chat/${chatRoomId}`),
+        {
+          state: { chatRoomId, productInfo, chatInfoList },
+        };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  console.log(parsedProductId);
 
   const goToEdit = () => {
     navigate(`/item/update/${productId}`);
@@ -192,8 +210,9 @@ const ItemDetail: React.FC = () => {
           {userId === String(data?.userId) ? (
             <S.ChatButton onClick={goToEdit}>수정하기</S.ChatButton>
           ) : (
-            <S.ChatButton onClick={goToChat}>채팅하기</S.ChatButton>
+            <S.ChatButton onClick={()=>{handleChat()}>채팅하기</S.ChatButton>
           )}
+       
         </S.Buttons>
       </S.Maincontainer>
 

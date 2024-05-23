@@ -199,6 +199,7 @@ export const TextArea = styled.textarea`
   font-size: 2rem;
   padding: 2rem 1.5rem 0 2rem;
   outline: none;
+  white-space: pre;
 
   &:focus {
     border-color: orange;
