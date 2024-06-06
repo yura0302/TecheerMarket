@@ -21,14 +21,14 @@ export const ChangImg = styled.img`
 
 export const Name = styled.span`
   color: #000;
-  font-size: 23px;
+  font-size: 2.4rem;
   font-weight: 700;
 `;
 
 export const Title = styled.span`
   display: flex;
   color: #000;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 700;
 `;
 
@@ -47,7 +47,6 @@ export const ClickArea = styled.div`
 
   &:hover {
     cursor: pointer;
-    // background-color: rgba(217, 217, 217, 0.15);
   }
 `;
 
@@ -55,18 +54,38 @@ export const Item = styled.span`
   position: absolute;
   left: 3.4rem;
   color: #000;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 400;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2.6rem;
 `;
 
 export const NavBtn = styled.button`
   margin-top: 6rem;
-  font-size: 15px;
+  font-size: 1.5rem;
   font-weight: 700;
   appearance: none;
   border: 0;
   padding: 0;
   background-color: transparent;
+
+  &:hover {
+    cursor: pointer;
+    color: #828385;
+  }
+`;
+
+export const FormBtn = styled.a`
+  text-decoration: none;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: 700;
 
   &:hover {
     cursor: pointer;
