@@ -10,6 +10,8 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/testing-react',
     '@storybook/testing-library',
+    '@storybook/addon-a11y',
+    '@storybook/icons',
   ],
   framework: {
     name: '@storybook/react-vite',
