@@ -1,21 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
-import profile from '../../assets/profile.svg';
-import Heart from '../../assets/HeartIcon.svg';
-import Store from '../../assets/StoreIcon.svg';
-import Cart from '../../assets/CartIcon.svg';
+import profile from '@/assets/profile.svg';
+import { MYPAGE_ITEMS } from '@/constants/mypageItem';
 import TopNavBar from '@/components/TopNavBar';
 import { restFetcher } from '@/queryClient';
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { UserInfo } from '@/types/userInfo';
-
-const NAV_ITEMS = [
-  { path: '/wishlist', imgSrc: Heart, altText: 'heartIcon', label: '좋아요 목록' },
-  { path: '/saleslist', imgSrc: Store, altText: 'StoreIcon', label: '판매 내역' },
-  { path: '/purchaselist', imgSrc: Cart, altText: 'CartIcon', label: '구매 내역' },
-];
 
 const MyPage: React.FC = () => {
   const navigate = useNavigate();
@@ -50,7 +42,7 @@ const MyPage: React.FC = () => {
 
         <S.Title>나의 거래</S.Title>
 
-        {NAV_ITEMS.map((item, index) => (
+        {MYPAGE_ITEMS.map((item, index) => (
           <S.ItemBox key={index}>
             <S.ClickArea onClick={() => navigate(item.path)}>
               <img src={item.imgSrc} alt={item.altText} />
@@ -59,7 +51,13 @@ const MyPage: React.FC = () => {
           </S.ItemBox>
         ))}
 
-        <S.NavBtn onClick={() => navigate('/edit_info')}>계정 / 정보 관리</S.NavBtn>
+        <S.ButtonWrapper>
+          <S.NavBtn onClick={() => navigate('/edit_info')}>계정 / 정보 관리</S.NavBtn>
+
+          <S.FormBtn href="https://docs.google.com/forms/d/e/1FAIpQLScBTFRrxNFv69iL--I2rpCg8lb7n6VCRw42QIUOr2tLVHEgfQ/viewform">
+            마음의 소리함 📮
+          </S.FormBtn>
+        </S.ButtonWrapper>
       </S.Div>
     </>
   );

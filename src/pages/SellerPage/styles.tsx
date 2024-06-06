@@ -23,7 +23,7 @@ export const Tab = styled.li<{ isActive: boolean }>`
 
 export const TabContent = styled.div`
   padding: 2rem 2rem 0;
-  display: flex;
+  display: wrap;
   align-items: center;
   justify-content: center;
 `;

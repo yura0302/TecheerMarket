@@ -18,20 +18,6 @@ const useFetchProductList = ({ path, queryKey }: FetchProductListProps) => {
 
       const products = response.data.map((item: Product) => item);
 
-      // const productsWithChatroomCounts = await Promise.all(
-      //   response.data.map(async (product: Product) => {
-      //     const chatroomResponse = await restFetcher({
-      //       method: 'GET',
-      //       path: `/chatroom/count/${product.productId}`,
-      //     });
-      //     return { ...product, chatroomCount: chatroomResponse.data };
-      //   }),
-      // );
-
-      // return {
-      //   data: productsWithChatroomCounts,
-      //   nextPage: response.data.length ? pageParam + 1 : undefined,
-      // };
       return { data: products, nextPage: response.data.length ? pageParam + 1 : undefined };
     } catch (error) {
       return { data: [], nextPage: undefined };

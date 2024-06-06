@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as S from './styles';
 import TopNavBar from '@/components/TopNavBar';
 import ProductForm from '@/components/ProductForm/ProductForm';
@@ -15,7 +14,6 @@ interface ApiResponse {
 }
 
 const SalesList: React.FC = () => {
-  const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
   const [activeIndex, setActiveIndex] = useState<number>(0);
 

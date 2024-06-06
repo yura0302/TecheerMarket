@@ -16,11 +16,11 @@ const useProductForm = ({ state }: ProductFormProps) => {
 
   const mutateChangeProductState = useMutation(
     (product: Product) => {
-      let newState = state === 'SOLD' ? 'SALE' : 'SOLD';
+      let body = state === 'SOLD' ? { state: 'SALE' } : { state: 'SOLD', buyerEmail: null };
       return restFetcher({
         method: 'PUT',
         path: `/products/state/${product.productId}`,
-        body: { state: newState },
+        body: body,
       });
     },
     {

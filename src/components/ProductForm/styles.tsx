@@ -23,12 +23,12 @@ export const ProductContent = styled.div`
   padding-left: 1rem;
 `;
 
-export const ImageDiv = styled.div`
+export const ImageDiv = styled.img`
   width: 9rem;
   height: 9rem;
-  border-radius: 10px;
-  background-size: cover;
-  background-repeat: no-repeat;
+  border-radius: 1rem;
+  object-fit: cover;
+  aspect-ratio: 1 / 1;
 `;
 
 export const TextDiv = styled.div`

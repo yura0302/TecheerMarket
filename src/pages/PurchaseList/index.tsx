@@ -18,15 +18,6 @@ const PurchaseList: React.FC = () => {
   return (
     <>
       <TopNavBar page="나의 구매 내역" />
-      <S.BtnDiv>
-        <S.WriteBtn
-          onClick={() => {
-            navigate('/write');
-          }}
-        >
-          글쓰기
-        </S.WriteBtn>
-      </S.BtnDiv>
 
       <S.ProductContainer>
         {isLoading ? (
