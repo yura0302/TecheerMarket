@@ -23,6 +23,7 @@ export const Image = styled.img`
   width: 100%;
   height: 30rem;
   object-fit: cover;
+  aspect-ratio: 4 / 3;
 `;
 
 export const ButtonWrapper = styled.div`
