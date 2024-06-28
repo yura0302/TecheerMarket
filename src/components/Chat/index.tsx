@@ -148,7 +148,11 @@ const Chat: React.FC<ChatProps> = ({ chatId }) => {
             </S.Div>
           </S.Container>
 
-          <ChatContainer chatList={chatList} setChatList={setChatList} />
+          <ChatContainer
+            chatList={chatList}
+            setChatList={setChatList}
+            chatContainerRef={chatContainerRef}
+          />
           <S.BottomContainer>
             <S.ChatDiv>
               <S.Input

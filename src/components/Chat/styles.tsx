@@ -79,7 +79,8 @@ export const ChatDiv = styled.div`
 export const Input = styled.input`
   border-radius: 10px;
   width: 45rem;
-  height: 3rem;
+  height: 3.5rem;
+  /* min-height: 15px; */
   margin-left: 5px;
   font-style: normal;
   font-weight: 700;

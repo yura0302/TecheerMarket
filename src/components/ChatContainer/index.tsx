@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as S from './styles';
 import moment from 'moment';
 import 'moment/locale/ko';
@@ -10,11 +10,14 @@ import { ChatInfoData } from '../Chat';
 interface IChatContainer {
   chatList: ChatInfoData[];
   setChatList: React.Dispatch<React.SetStateAction<ChatInfoData[]>>;
+  chatContainerRef: React.RefObject<HTMLDivElement>;
 }
-const BASE_URL = 'http://techeermarket.ap-northeast-2.elasticbeanstalk.com/api';
-const ChatContainer = ({ chatList, setChatList }: IChatContainer) => {
+
+const BASE_URL = import.meta.env.VITE_APP_URL;
+const ChatContainer = ({ chatList, setChatList, chatContainerRef }: IChatContainer) => {
   const [IsUserId, setIsUserId] = useState(null);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchUserId = async () => {
       try {
@@ -32,7 +35,11 @@ const ChatContainer = ({ chatList, setChatList }: IChatContainer) => {
     fetchUserId();
   }, []);
 
-  useEffect(() => {}, [chatList]);
+  useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
+  }, [chatList, chatContainerRef]);
 
   const formatDate = (date: string) => moment(date).format('YYYY년 MM월 DD일');
 
@@ -48,7 +55,7 @@ const ChatContainer = ({ chatList, setChatList }: IChatContainer) => {
     newUserId = parseInt(userIdFromLocalStorage, 10);
   }
   return (
-    <S.Container>
+    <S.Container ref={chatContainerRef}>
       {chatList?.map((message, index) => {
         const isMyMessage = message.senderId === newUserId;
         const showDate = isNewDay(index, message);
