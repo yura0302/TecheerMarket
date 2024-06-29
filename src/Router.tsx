@@ -35,7 +35,7 @@ export const routes = [
   { path: '/chat/room', element: <ChatList /> },
   { path: '/chat/:chatRoomId', element: <ChattingPage /> },
   { path: '/chat/create/:idx', element: <ChattingPage /> },
-  { path: '/item/:id', element: <ItemDetail /> },
+  { path: '/item/:productId', element: <ItemDetail /> },
   { path: '/category', element: <CategoryList /> },
   { path: '/category/:categoryId', element: <CategoryPage /> },
   { path: '/search', element: <SearchPage /> },
